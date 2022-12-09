@@ -9,7 +9,7 @@ struct Color;
 struct RenderManager
 {
 
-	struct RectEntry
+	struct RenderEntry
 	{
 		const Rectangle& rect;
 		const Color& color;
@@ -20,5 +20,5 @@ struct RenderManager
 	void PushRectEntryToRenderQueue(const Rectangle& rect, const Color& color, const Transform& trans);
 	void ClearRenderQueue();
 
-	std::vector<RectEntry> rectEntries;
+	std::vector<RenderEntry> entryRenderQueue;
 };

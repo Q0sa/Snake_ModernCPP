@@ -10,13 +10,13 @@
 
 void RenderManager::PushRectEntryToRenderQueue(const Rectangle& rect, const Color& color, const Transform& trans)
 {
-	rectEntries.push_back({ rect, color, trans });
+	entryRenderQueue.push_back({ rect, color, trans });
 }
 
 void RenderManager::ClearRenderQueue()
 {
 	
-	rectEntries.clear();
+	entryRenderQueue.clear();
 }
 
 KeyCode TranslateKeyCode(SDL_Keycode code)
@@ -115,7 +115,7 @@ int main()
 		SDL_SetRenderDrawColor(renderer,0,0,0,0);
 		SDL_RenderClear(renderer);
 		
-		for (auto&& entry : renderManager.rectEntries)
+		for (auto&& entry : renderManager.entryRenderQueue)
 		{
 			SDL_SetRenderDrawColor(renderer, entry.color.r, entry.color.g, entry.color.b, entry.color.a);
 			SDL_Rect rect{ static_cast<int>(entry.trans.position.x),
