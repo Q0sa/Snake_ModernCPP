@@ -10,72 +10,6 @@
 
 // ResourceManager 
 
-struct ResourceImpl
-{
-	ResourceImpl(SDL_Renderer* renderer) : renderer(renderer) {};
-	std::vector<std::pair<std::string, SDL_Texture*>> textures;
-	SDL_Renderer* renderer;
-	SDL_Texture* GetTexture(unsigned int id)
-	{
-		if (id < textures.size())
-			return textures[id].second;
-		else
-			return nullptr;
-	}
-};
-
-bool ResourceManager::LoadImageFromFile(Image& image, const std::string &filePath)
-{
-	auto it = impl.textures.begin();
-	unsigned int index = 0;
-	while (it != impl.textures.end())
-	{
-		if ((*it).first == filePath)
-		{
-			image.id = index;
-			return true;
-		}
-		it++;
-		index++;
-	}
-	SDL_Surface* surface = SDL_LoadBMP(filePath.c_str());
-	if (surface != nullptr)
-	{
-		SDL_Texture* texture = SDL_CreateTextureFromSurface(impl.renderer, surface);
-		if (texture != nullptr)
-		{
-			impl.textures.push_back(std::pair<std::string, SDL_Texture*>(filePath, texture));
-			image.id = static_cast<unsigned int>(impl.textures.size() - 1);
-			image.width = surface->w;
-			image.height = surface->h;
-			return true;
-		}
-		else
-		{
-			const char* error = SDL_GetError();
-			return false;
-		}
-	}
-	else
-	{
-		const char* error = SDL_GetError();
-		return false;
-	}
-	return false;
-};
-
-// RenderManager
-
-struct RenderImpl
-{
-	SDL_Renderer* renderer;
-
-};
-
-void RenderManager::Render(const Sprite& sprite, const Transform& trans)
-{
-	spriteEntries.push_back({ sprite, trans });
-}
 
 void RenderManager::Render(const Rectangle& rect, const Color& color, const Transform& trans)
 {
@@ -84,7 +18,7 @@ void RenderManager::Render(const Rectangle& rect, const Color& color, const Tran
 
 void RenderManager::Clear()
 {
-	spriteEntries.clear();
+	
 	rectEntries.clear();
 }
 
@@ -148,9 +82,8 @@ int main()
 	bool running = true;
 	
 	RenderManager renderManager;
-	ResourceImpl resourceImpl(renderer);
-	ResourceManager resourceManager(resourceImpl);
-	Game game(resourceManager);
+
+	Game game;
 
 	int width = 500;
 	int height = 500;
@@ -179,27 +112,7 @@ int main()
 
 		SDL_SetRenderDrawColor(renderer,0,0,0,0);
 		SDL_RenderClear(renderer);
-		for (auto &&entry : renderManager.spriteEntries)
-		{
-			if (entry.sprite.image != nullptr)
-			{
-				SDL_Rect src{ entry.sprite.source.x, entry.sprite.source.y, entry.sprite.source.w, entry.sprite.source.h };
-				SDL_Rect dst{ static_cast<int>(entry.trans.position.x),
-							  static_cast<int>(entry.trans.position.y),
-							  static_cast<int>(entry.sprite.image->width),
-							  static_cast<int>(entry.sprite.image->height) };
-				SDL_RenderCopy(renderer, resourceImpl.GetTexture(entry.sprite.image->id), &src, &dst);
-			}
-			else
-			{
-				SDL_SetRenderDrawColor(renderer, entry.sprite.color.r, entry.sprite.color.g, entry.sprite.color.b, entry.sprite.color.a);
-				SDL_Rect rect{ static_cast<int>(entry.trans.position.x),
-							   static_cast<int>(entry.trans.position.y),
-							   entry.sprite.source.w,
-							   entry.sprite.source.h };
-				SDL_RenderDrawRect(renderer, &rect);
-			}
-		}
+		
 		for (auto&& entry : renderManager.rectEntries)
 		{
 			SDL_SetRenderDrawColor(renderer, entry.color.r, entry.color.g, entry.color.b, entry.color.a);

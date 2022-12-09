@@ -15,7 +15,6 @@ class Game
 	Player playerOne;
 	Apple apple;
 
-	ResourceManager& m_resourceManager;
 
 public:
 	//Teemu Code Begin.
@@ -26,7 +25,7 @@ public:
 	int width;
 	int height;
 
-	Game(ResourceManager& resourceManager);
+	Game();
 	~Game();
 	bool Enter(int& width, int& height, std::string& title);
 	void Update(double dt);
