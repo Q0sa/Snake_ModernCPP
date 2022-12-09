@@ -39,19 +39,10 @@
     <ClCompile Include="Rectangle.cpp">
       <Filter>Source Files\DataTypes</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Source Files\DataTypes</Filter>
-    </ClCompile>
     <ClCompile Include="Color.cpp">
       <Filter>Source Files\DataTypes</Filter>
     </ClCompile>
-    <ClCompile Include="Image.cpp">
-      <Filter>Source Files\DataTypes</Filter>
-    </ClCompile>
     <ClCompile Include="Transform.cpp">
-      <Filter>Source Files\DataTypes</Filter>
-    </ClCompile>
-    <ClCompile Include="Collider.cpp">
       <Filter>Source Files\DataTypes</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
@@ -68,22 +59,10 @@
     <ClInclude Include="RenderManager.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>Header Files\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Collider.h">
-      <Filter>Header Files\DataTypes</Filter>
-    </ClInclude>
     <ClInclude Include="Color.h">
       <Filter>Header Files\DataTypes</Filter>
     </ClInclude>
-    <ClInclude Include="Image.h">
-      <Filter>Header Files\DataTypes</Filter>
-    </ClInclude>
     <ClInclude Include="Rectangle.h">
-      <Filter>Header Files\DataTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
       <Filter>Header Files\DataTypes</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">

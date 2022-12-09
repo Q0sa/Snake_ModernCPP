@@ -1,10 +1,7 @@
 ﻿#include "SDL.h"
 #include "RenderManager.h"
-#include "ResourceManager.h"
 #include "Game.h"
-#include "Sprite.h"
 #include "Transform.h"
-#include "Image.h"
 
 #undef main
 
