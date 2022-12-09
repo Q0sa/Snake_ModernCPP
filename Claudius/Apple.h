@@ -11,7 +11,7 @@ struct Apple
 {
 
 	Apple();
-	void Render(RenderManager& renderManager);
+	void QueueAppleForRending(RenderManager& renderManager);
 	void Initialize(unsigned int width, unsigned int height);
 
 	Rectangle rect;

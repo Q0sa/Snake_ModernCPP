@@ -25,7 +25,7 @@ struct Player
 	Rectangle rect;
 	void OnKeyDown(KeyCode key);
 	void Initialize();
-	void Render(RenderManager& renderManager);				// A reference or pointer doesn't need to be #include, just a forward declare.
+	void QueueSnakeForRendering(RenderManager& renderManager);				// A reference or pointer doesn't need to be #include, just a forward declare.
 	void Update();
 	void ResetPlayer();
 

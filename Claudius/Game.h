@@ -29,6 +29,6 @@ public:
 	~Game();
 	bool Enter(int& width, int& height, std::string& title);
 	void Update();
-	void Render(RenderManager& rendererManager);
+	void QueueGameObjectsForRendering(RenderManager& rendererManager);
 	void OnKeyDown(KeyCode key);
 };

@@ -18,13 +18,13 @@ void Player::Initialize()
 	}
 }
 
-void Player::Render(RenderManager& renderManager)
+void Player::QueueSnakeForRendering(RenderManager& renderManager)
 {
-	renderManager.Render(rect, color, trans);
+	renderManager.PushRectEntryToRenderQueue(rect, color, trans);
 
 	for (int i = 0; i < player_score; i++)
 	{
-		renderManager.Render(parts[i].rect, parts[i].color, parts[i].trans);
+		renderManager.PushRectEntryToRenderQueue(parts[i].rect, parts[i].color, parts[i].trans);
 	}
 }
 

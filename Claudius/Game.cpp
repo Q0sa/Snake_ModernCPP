@@ -64,10 +64,10 @@ void Game::Update()
 	}
 }
 
-void Game::Render(RenderManager& renderManager)
+void Game::QueueGameObjectsForRendering(RenderManager& renderManager)
 {
-	playerOne.Render(renderManager);
-	apple.Render(renderManager);
+	playerOne.QueueSnakeForRendering(renderManager);
+	apple.QueueAppleForRending(renderManager);
 }
 
 void Game::OnKeyDown(KeyCode key)

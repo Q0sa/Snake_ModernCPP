@@ -8,12 +8,12 @@
 // ResourceManager 
 
 
-void RenderManager::Render(const Rectangle& rect, const Color& color, const Transform& trans)
+void RenderManager::PushRectEntryToRenderQueue(const Rectangle& rect, const Color& color, const Transform& trans)
 {
 	rectEntries.push_back({ rect, color, trans });
 }
 
-void RenderManager::Clear()
+void RenderManager::ClearRenderQueue()
 {
 	
 	rectEntries.clear();
@@ -76,10 +76,10 @@ int main()
 		const char* error = SDL_GetError();
 		return 0;
 	}
+
 	bool running = true;
 	
 	RenderManager renderManager;
-
 	Game game;
 
 	int width = 500;
@@ -98,10 +98,10 @@ int main()
 			switch (user_event.type)
 			{
 
-			case SDL_QUIT: running = false;
+			case SDL_KEYDOWN: game.OnKeyDown(TranslateKeyCode(user_event.key.keysym.sym));
 				break;
 
-			case SDL_KEYDOWN: game.OnKeyDown(TranslateKeyCode(user_event.key.keysym.sym));
+			case SDL_QUIT: running = false;
 				break;
 
 
@@ -110,7 +110,7 @@ int main()
 		}
 
 		game.Update();
-		game.Render(renderManager);
+		game.QueueGameObjectsForRendering(renderManager);
 
 		SDL_SetRenderDrawColor(renderer,0,0,0,0);
 		SDL_RenderClear(renderer);
@@ -126,7 +126,7 @@ int main()
 			SDL_RenderFillRect(renderer, &rect);  // <- If you want to draw a "filled" rectangle. 
 		}
 		SDL_RenderPresent(renderer);
-		renderManager.Clear();
+		renderManager.ClearRenderQueue();
 		SDL_Delay(1000 / 20); //<- "Framerate".
 	}
 
