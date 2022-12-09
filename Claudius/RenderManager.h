@@ -20,5 +20,5 @@ struct RenderManager
 	void PushRectEntryToRenderQueue(const Rectangle& rect, const Color& color, const Transform& trans);
 	void ClearRenderQueue();
 
-	std::vector<RenderEntry> entryRenderQueue;
+	std::vector<RenderEntry> renderQueue;
 };
