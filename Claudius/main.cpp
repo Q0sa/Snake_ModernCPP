@@ -90,21 +90,26 @@ int main()
 	SDL_SetWindowTitle(window, title.c_str());
 	SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 	
-	float dt = 1.0f / 60.0f;	
 	while (running)
 	{
-		SDL_Event e;
-		while (SDL_PollEvent(&e))
+		SDL_Event user_event = {};
+		while (SDL_PollEvent(&user_event))
 		{
-			switch (e.type)
+			switch (user_event.type)
 			{
-			case SDL_QUIT: running = false; break;
-			case SDL_KEYDOWN: game.OnKeyDown(TranslateKeyCode(e.key.keysym.sym)); break;
-			case SDL_KEYUP: game.OnKeyUp(TranslateKeyCode(e.key.keysym.sym)); break;
+
+			case SDL_QUIT: running = false;
+				break;
+
+			case SDL_KEYDOWN: game.OnKeyDown(TranslateKeyCode(user_event.key.keysym.sym));
+				break;
+
+
+			default: break;
 			}
 		}
 
-		game.Update(dt);
+		game.Update();
 		game.Render(renderManager);
 
 		SDL_SetRenderDrawColor(renderer,0,0,0,0);

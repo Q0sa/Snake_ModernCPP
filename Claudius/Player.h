@@ -26,7 +26,7 @@ struct Player
 	void OnKeyDown(KeyCode key);
 	void Initialize();
 	void Render(RenderManager& renderManager);				// A reference or pointer doesn't need to be #include, just a forward declare.
-	void Update(double dt);
+	void Update();
 	void ResetPlayer();
 
 	int size = 10;

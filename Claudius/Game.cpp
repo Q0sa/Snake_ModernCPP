@@ -23,7 +23,7 @@ bool Game::Enter(int& width, int& height, std::string& title)
 	return true;
 }
 
-void Game::Update(double dt)
+void Game::Update()
 {
 	// dt means delta time.
 	// timer += dt; <- check Game.h
@@ -33,7 +33,7 @@ void Game::Update(double dt)
 	// timer = 0.0f; or timer -= updateInterval;
 	//}
 
-	playerOne.Update(dt);
+	playerOne.Update();
 
 	// Player colliding on theirself.
 	for (int i = 0; i < playerOne.player_score; i++)
@@ -75,6 +75,4 @@ void Game::OnKeyDown(KeyCode key)
 	playerOne.OnKeyDown(key);
 }
 
-void Game::OnKeyUp(KeyCode key)
-{
-}
+

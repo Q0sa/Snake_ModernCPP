@@ -28,7 +28,7 @@ void Player::Render(RenderManager& renderManager)
 	}
 }
 
-void Player::Update(double dt)
+void Player::Update()
 {
 	x_array_difference[0] = trans.GetX() - parts[0].trans.GetX();
 	y_array_difference[0] = trans.GetY() - parts[0].trans.GetY();

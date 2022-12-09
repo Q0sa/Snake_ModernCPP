@@ -28,8 +28,7 @@ public:
 	Game();
 	~Game();
 	bool Enter(int& width, int& height, std::string& title);
-	void Update(double dt);
+	void Update();
 	void Render(RenderManager& rendererManager);
 	void OnKeyDown(KeyCode key);
-	void OnKeyUp(KeyCode key);
 };
