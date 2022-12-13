@@ -20,7 +20,7 @@ void Apple::Initialize(unsigned int width, unsigned int height)
 	//direction = { -0.05f, 0.05f };
 }
 
-void Apple::QueueAppleForRending(RenderManager& renderManager)
+void Apple::QueueAppleForRendering(RenderManager& renderManager)
 {
 	renderManager.PushRectEntryToRenderQueue(rect, color, trans);
 }

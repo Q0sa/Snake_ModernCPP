@@ -71,7 +71,7 @@ void Game::Update()
 void Game::QueueGameObjectsForRendering()
 {
 	playerOne.QueueSnakeForRendering(renderManager);
-	apple.QueueAppleForRending(renderManager);
+	apple.QueueAppleForRendering(renderManager);
 }
 
 void Game::ClearRenderManager() {

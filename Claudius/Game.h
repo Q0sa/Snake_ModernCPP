@@ -11,8 +11,8 @@
 
 class Game
 {
-	Player playerOne;
-	Apple apple;
+	Player playerOne = {};
+	Apple apple = {};
 
 	RenderManager renderManager = {};
 

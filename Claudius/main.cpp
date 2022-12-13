@@ -67,7 +67,7 @@ int main()
 
 	bool running = true;
 	
-	Game game;
+	Game game = {};
 
 	int width = 500;
 	int height = 500;
