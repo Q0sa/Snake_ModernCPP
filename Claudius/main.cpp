@@ -7,18 +7,6 @@
 
 // ResourceManager 
 
-
-void RenderManager::PushRectEntryToRenderQueue(const Rectangle& rect, const Color& color, const Transform& trans)
-{
-	renderQueue.push_back({ rect, color, trans });
-}
-
-void RenderManager::ClearRenderQueue()
-{
-	
-	renderQueue.clear();
-}
-
 KeyCode TranslateKeyCode(SDL_Keycode code)
 {
 	switch (code)
