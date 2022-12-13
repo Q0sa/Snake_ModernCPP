@@ -5,17 +5,18 @@
 #include "KeyCode.h"
 #include "Apple.h"
 #include "Player.h"
+#include "RenderManager.h"
 
-
-struct RenderManager;
-struct ResourceManager;
+//struct RenderManager;
 
 class Game
 {
 	Player playerOne;
 	Apple apple;
 
+	RenderManager renderManager = {};
 
+	void QueueGameObjectsForRendering();
 public:
 	//Teemu Code Begin.
 
@@ -27,8 +28,13 @@ public:
 
 	Game();
 	~Game();
+
 	bool Enter(int& width, int& height, std::string& title);
 	void Update();
-	void QueueGameObjectsForRendering(RenderManager& rendererManager);
+	
+	void ClearRenderManager();
+
+	std::vector<RenderManager::RenderEntry> GetRenderQueue();
+
 	void OnKeyDown(KeyCode key);
 };

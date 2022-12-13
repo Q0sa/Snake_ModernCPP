@@ -62,12 +62,27 @@ void Game::Update()
 		playerOne.player_score++;
 		apple.trans.SetPosition((rand() % 125) * 10.0f, (rand() % 70) * 10.0f);
 	}
+
+	QueueGameObjectsForRendering();
+
 }
 
-void Game::QueueGameObjectsForRendering(RenderManager& renderManager)
+
+void Game::QueueGameObjectsForRendering()
 {
 	playerOne.QueueSnakeForRendering(renderManager);
 	apple.QueueAppleForRending(renderManager);
+}
+
+void Game::ClearRenderManager() {
+
+	renderManager.ClearRenderQueue();
+
+}
+
+std::vector<RenderManager::RenderEntry> Game::GetRenderQueue()
+{
+	return renderManager.renderQueue;
 }
 
 void Game::OnKeyDown(KeyCode key)

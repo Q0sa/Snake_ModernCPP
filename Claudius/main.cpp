@@ -67,7 +67,6 @@ int main()
 
 	bool running = true;
 	
-	RenderManager renderManager;
 	Game game;
 
 	int width = 500;
@@ -98,12 +97,11 @@ int main()
 		}
 
 		game.Update();
-		game.QueueGameObjectsForRendering(renderManager);
 
 		SDL_SetRenderDrawColor(renderer,0,0,0,0);
 		SDL_RenderClear(renderer);
 		
-		for (auto&& entry : renderManager.renderQueue)
+		for (auto&& entry : game.GetRenderQueue())
 		{
 			SDL_SetRenderDrawColor(renderer, entry.color.r, entry.color.g, entry.color.b, entry.color.a);
 			SDL_Rect rect{ static_cast<int>(entry.trans.position.x),
@@ -114,7 +112,9 @@ int main()
 			SDL_RenderFillRect(renderer, &rect);  // <- If you want to draw a "filled" rectangle. 
 		}
 		SDL_RenderPresent(renderer);
-		renderManager.ClearRenderQueue();
+
+		game.ClearRenderManager();
+
 		SDL_Delay(1000 / 20); //<- "Framerate".
 	}
 
