@@ -97,7 +97,7 @@ const char* Game::GetGameTitle() {
 }
 
 
-void Game::OnKeyDown(KeyCode key)
+void Game::PassInputToPlayer(SDL_Keycode key)
 {
 	playerOne.OnKeyDown(key);
 }

@@ -3,7 +3,7 @@
 #include "Transform.h"
 #include "Color.h"
 #include "Rectangle.h"
-#include "KeyCode.h"
+#include "SDL_keycode.h"
 
 struct RenderManager;
 
@@ -23,7 +23,7 @@ struct Player
 	Transform trans;
 	Color color;
 	Rectangle rect;
-	void OnKeyDown(KeyCode key);
+	void InputToMovementDirection(SDL_Keycode key);
 	void Initialize();
 	void QueueSnakeForRendering(RenderManager& renderManager);				// A reference or pointer doesn't need to be #include, just a forward declare.
 	void Update();

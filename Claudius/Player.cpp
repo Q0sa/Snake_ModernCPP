@@ -81,35 +81,46 @@ void Player::Update()
 	}
 }
 
-void Player::OnKeyDown(KeyCode key)
+void Player::InputToMovementDirection(SDL_Keycode key)
 {
-	if (key == KeyCode::LEFT_ARROW)
+
+	switch (key)
 	{
-		moving_left = true;
-		moving_right = false;
-		moving_up = false;
-		moving_down = false;
-	}
-	else if (key == KeyCode::RIGHT_ARROW)
-	{
-		moving_left = false;
-		moving_right = true;
-		moving_up = false;
-		moving_down = false;
-	}
-	else if (key == KeyCode::UP_ARROW)
-	{
+	case SDLK_UP:
+		
 		moving_left = false;
 		moving_right = false;
 		moving_up = true;
 		moving_down = false;
-	}
-	else if (key == KeyCode::DOWN_ARROW)
-	{
+		
+		break;
+
+	case SDLK_DOWN:
 		moving_left = false;
 		moving_right = false;
 		moving_up = false;
 		moving_down = true;
+		
+		break;
+
+	case SDLK_RIGHT: 
+		moving_left = false;
+		moving_right = true;
+		moving_up = false;
+		moving_down = false;
+		
+		break;
+
+	case SDLK_LEFT: 
+		moving_left = true;
+		moving_right = false;
+		moving_up = false;
+		moving_down = false;
+
+		break;
+
+	default:
+		break;
 	}
 }
 

@@ -2,7 +2,6 @@
 
 #include <string>
 #include <vector>
-#include "KeyCode.h"
 #include "Apple.h"
 #include "Player.h"
 #include "RenderManager.h"
@@ -39,7 +38,7 @@ public:
 
 	std::vector<RenderManager::RenderEntry> GetRenderQueue();
 
-	void OnKeyDown(KeyCode key);
+	void PassInputToPlayer(SDL_Keycode key);
 
 private:
 
