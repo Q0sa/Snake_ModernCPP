@@ -2,6 +2,8 @@
 #include "RenderManager.h"
 #include "Game.h"
 #include "Transform.h"
+#include <cassert>
+#include <iostream>
 
 #undef main
 
@@ -51,28 +53,44 @@ KeyCode TranslateKeyCode(SDL_Keycode code)
 
 int main()
 {
-	SDL_Init(SDL_INIT_EVERYTHING);
-	SDL_Window* window = SDL_CreateWindow("Base", 0, 0, 0, 0, SDL_WindowFlags::SDL_WINDOW_RESIZABLE);
-	if (window == nullptr)
-	{
-		const char* error = SDL_GetError();
-		return 0;
-	}
-	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RendererFlags::SDL_RENDERER_ACCELERATED);
-	if (renderer == nullptr)
-	{
-		const char* error = SDL_GetError();
-		return 0;
-	}
-
 	bool running = true;
 	
 	Game game = {};
+	
+
+	SDL_Init(SDL_INIT_EVERYTHING);
+	SDL_Window* window = SDL_CreateWindow(game.GetGameTitle(),
+		SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED,
+		game.GetGameWidth(),
+		game.GetGameHeight(),
+		SDL_WindowFlags::SDL_WINDOW_SHOWN);
+
+	if (window == nullptr)
+	{
+		std::cout << SDL_GetError() << "\n";
+		SDL_DestroyWindow(window);
+
+		return -1;
+		
+	}
+
+	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RendererFlags::SDL_RENDERER_ACCELERATED);
+	if (renderer == nullptr)
+	{
+		std::cout << SDL_GetError() << "\n";
+
+		SDL_DestroyRenderer(renderer);
+		SDL_DestroyWindow(window);
+
+		return -1;
+	
+	}
+
 
 	
-	SDL_SetWindowSize(window, game.GetGameWidth(), game.GetGameHeight());
-	SDL_SetWindowTitle(window, game.GetGameTitle());
-	SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+	
+	
 	
 	while (running)
 	{
@@ -95,7 +113,7 @@ int main()
 
 		game.Update();
 
-		SDL_SetRenderDrawColor(renderer,0,0,0,0);
+        SDL_SetRenderDrawColor(renderer,0,0,0,0);
 		SDL_RenderClear(renderer);
 		
 		for (auto&& entry : game.GetRenderQueue())
