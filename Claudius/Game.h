@@ -11,30 +11,44 @@
 
 class Game
 {
-	Player playerOne = {};
-	Apple apple = {};
 
-	RenderManager renderManager = {};
-
-	void QueueGameObjectsForRendering();
 public:
 	//Teemu Code Begin.
 
 	// float timer; <- can be used in delta time
 	// float updateInterval; <- check Game.h
 
-	int width;
-	int height;
+	struct WindowConfig {
+		int width = {};
+		int height = {};
+		const char* title = {};
+	};
+
+
 
 	Game();
 	~Game();
 
-	bool Enter(int& width, int& height, std::string& title);
 	void Update();
 	
 	void ClearRenderManager();
 
+	int GetGameWidth();
+	int GetGameHeight();
+	const char* GetGameTitle();
+
 	std::vector<RenderManager::RenderEntry> GetRenderQueue();
 
 	void OnKeyDown(KeyCode key);
+
+private:
+
+	WindowConfig windowConfig = {};
+
+	Player playerOne = {};
+	Apple apple = {};
+
+	RenderManager renderManager = {};
+
+	void QueueGameObjectsForRendering();
 };

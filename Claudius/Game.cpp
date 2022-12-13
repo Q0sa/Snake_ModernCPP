@@ -4,7 +4,7 @@
 #include "RenderManager.h"
 #include <iostream>
 
-Game::Game() : width(1250), height(700)
+Game::Game() : windowConfig({ 1250, 700, "Snake"})
 {
 	//Player test, moving two players to collide with each other.
 	playerOne.Initialize();
@@ -15,13 +15,6 @@ Game::~Game()
 {
 }
 
-bool Game::Enter(int& width, int& height, std::string& title)
-{
-	width = this->width;	//1250
-	height = this->height;	// 700
-	title = "Snake";
-	return true;
-}
 
 void Game::Update()
 {
@@ -45,13 +38,13 @@ void Game::Update()
 	}
 
 	// Player going out of X bounds.
-	if (playerOne.trans.GetX() > width || playerOne.trans.GetX() < 0)
+	if (playerOne.trans.GetX() > windowConfig.width || playerOne.trans.GetX() < 0)
 	{
 		playerOne.ResetPlayer();
 	}
 
 	// Player going out of Y bounds.
-	if (playerOne.trans.GetY() > height || playerOne.trans.GetY() < 0)
+	if (playerOne.trans.GetY() > windowConfig.height || playerOne.trans.GetY() < 0)
 	{
 		playerOne.ResetPlayer();
 	}
@@ -84,6 +77,25 @@ std::vector<RenderManager::RenderEntry> Game::GetRenderQueue()
 {
 	return renderManager.renderQueue;
 }
+
+int Game::GetGameHeight() {
+
+	return windowConfig.height;
+
+}
+
+int Game::GetGameWidth() {
+
+	return windowConfig.width;
+
+}
+
+const char* Game::GetGameTitle() {
+
+	return windowConfig.title;
+
+}
+
 
 void Game::OnKeyDown(KeyCode key)
 {

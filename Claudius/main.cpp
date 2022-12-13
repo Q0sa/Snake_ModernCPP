@@ -69,12 +69,9 @@ int main()
 	
 	Game game = {};
 
-	int width = 500;
-	int height = 500;
-	std::string title = "";
-	game.Enter(width, height, title);
-	SDL_SetWindowSize(window, width, height);
-	SDL_SetWindowTitle(window, title.c_str());
+	
+	SDL_SetWindowSize(window, game.GetGameWidth(), game.GetGameHeight());
+	SDL_SetWindowTitle(window, game.GetGameTitle());
 	SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 	
 	while (running)
