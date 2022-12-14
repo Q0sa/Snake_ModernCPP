@@ -4,7 +4,7 @@
 #include "Color.h"
 #include "Transform.h"
 
-struct RenderManager; //<- Kinda like #include "RenderManager.h", not exactly. Can't use functions. Google forward declaration.
+struct RenderManager;
 
 struct Apple
 {

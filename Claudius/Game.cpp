@@ -6,7 +6,6 @@
 
 Game::Game() : windowConfig({ 1250, 700, "Snake"})
 {
-	//Player test, moving two players to collide with each other.
 	playerOne.Initialize();
 	apple.Initialize(10, 10);
 }
@@ -18,17 +17,10 @@ Game::~Game()
 
 void Game::Update()
 {
-	// dt means delta time.
-	// timer += dt; <- check Game.h
-	// if (timer > updateInterval)
-	//{
-	// update snake movement
-	// timer = 0.0f; or timer -= updateInterval;
-	//}
+	
 
 	playerOne.Update();
 
-	// Player colliding on theirself.
 	for (int i = 0; i < playerOne.player_score; i++)
 	{
 		if (playerOne.trans.GetPosition() == playerOne.parts[i].trans.GetPosition())
@@ -37,19 +29,16 @@ void Game::Update()
 		}
 	}
 
-	// Player going out of X bounds.
 	if (playerOne.trans.GetX() > windowConfig.width || playerOne.trans.GetX() < 0)
 	{
 		playerOne.ResetPlayer();
 	}
 
-	// Player going out of Y bounds.
 	if (playerOne.trans.GetY() > windowConfig.height || playerOne.trans.GetY() < 0)
 	{
 		playerOne.ResetPlayer();
 	}
 
-	// Player collide on apple.
 	if (playerOne.trans.GetPosition() == apple.trans.GetPosition())
 	{
 		playerOne.player_score++;

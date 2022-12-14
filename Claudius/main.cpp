@@ -7,9 +7,6 @@
 
 #undef main
 
-// ResourceManager 
-
-
 
 int main()
 {
@@ -79,14 +76,14 @@ int main()
 						   static_cast<int>(entry.trans.position.y),
 						   entry.rect.w,
 						   entry.rect.h };
-			//SDL_RenderDrawRect(renderer, &rect);	// <- If you want to draw the "outline" of the rectangle.
-			SDL_RenderFillRect(renderer, &rect);  // <- If you want to draw a "filled" rectangle. 
+			
+			SDL_RenderFillRect(renderer, &rect);  
 		}
 		SDL_RenderPresent(renderer);
 
 		game.ClearRenderManager();
 
-		SDL_Delay(1000 / 20); //<- "Framerate".
+		SDL_Delay(1000 / 20); 
 	}
 
 	SDL_DestroyRenderer(renderer);

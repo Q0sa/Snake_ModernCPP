@@ -6,17 +6,12 @@
 #include "Player.h"
 #include "RenderManager.h"
 
-//struct RenderManager;
 
 class Game
 {
 
 public:
-	//Teemu Code Begin.
-
-	// float timer; <- can be used in delta time
-	// float updateInterval; <- check Game.h
-
+	
 	struct WindowConfig {
 		int width = {};
 		int height = {};

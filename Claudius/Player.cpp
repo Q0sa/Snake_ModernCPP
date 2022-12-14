@@ -50,6 +50,7 @@ void Player::Movement() {
 
 	case Player::MOVE_DIRECTION::NONE:
 		break;
+
 	case Player::MOVE_DIRECTION::UP:
 		trans.ChangePosition(0, -movement_speed);
 		parts[0].trans.ChangePosition(x_array_difference[0], y_array_difference[0]);
