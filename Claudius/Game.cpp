@@ -99,7 +99,7 @@ const char* Game::GetGameTitle() {
 
 void Game::PassInputToPlayer(SDL_Keycode key)
 {
-	playerOne.OnKeyDown(key);
+	playerOne.InputToMovementDirection(key);
 }
 
 
