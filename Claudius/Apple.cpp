@@ -4,7 +4,7 @@
 #include "Apple.h"
 #include "RenderManager.h"
 
-Apple::Apple() :
+Apple::Apple() noexcept :
 	size(10),
 	color(0, 255, 0, 0)
 {
@@ -21,7 +21,7 @@ void Apple::QueueAppleForRendering(RenderManager& renderManager)
 
 void Apple::SetRandomPosition() {
 
-	Vector2 newPosition = GenerateRandomPosition();
+	const Vector2 newPosition = GenerateRandomPosition();
 
 	trans.SetPosition(newPosition.x, newPosition.y);
 

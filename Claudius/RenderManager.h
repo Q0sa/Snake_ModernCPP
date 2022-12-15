@@ -17,8 +17,8 @@ struct RenderManager
 	};
 
 	void PushRectEntryToRenderQueue(const Rectangle& rect, const Color& color, const Transform& trans);
-	void ClearRenderQueue();
+	void ClearRenderQueue() noexcept;
 
-	std::vector<RenderEntry> renderQueue = {};
+	std::vector<RenderEntry> render_queue = {};
 
 };

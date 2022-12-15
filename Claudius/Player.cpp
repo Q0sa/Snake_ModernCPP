@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-Player::Player() :
+Player::Player() noexcept :
 	size(10),
 	movement_speed(10.0f),
 	starting_x(300.0f),
@@ -83,7 +83,7 @@ void Player::Movement() {
 
 }
 
-void Player::InputToMovementDirection(SDL_Keycode key)
+void Player::InputToMovementDirection(SDL_Keycode key) noexcept
 {
 
 	switch (key)
@@ -121,7 +121,7 @@ void Player::InputToMovementDirection(SDL_Keycode key)
 	}
 }
 
-bool Player::isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_input, const MOVE_DIRECTION& current_movement_direction) {
+bool Player::isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_input, const MOVE_DIRECTION& current_movement_direction) noexcept {
 
 	if (current_movement_direction == MOVE_DIRECTION::NONE) return true;
 
@@ -256,7 +256,7 @@ void Player::ResetPlayer()
 }
 
 
-int Player::GetSnakeSize(){
+int Player::GetSnakeSize() noexcept {
 
 	return snake_body.size();
 

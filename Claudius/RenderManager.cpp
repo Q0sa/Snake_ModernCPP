@@ -2,7 +2,7 @@
 
 #include "RenderManager.h"
 
-void  RenderManager::ClearRenderQueue()
+void  RenderManager::ClearRenderQueue() noexcept
 {
 
 	render_queue.clear();

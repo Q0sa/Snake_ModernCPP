@@ -11,7 +11,7 @@
 int main()
 {
 
-	srand(time(NULL));
+	srand(time(nullptr));
 
 	bool running = true;
 	

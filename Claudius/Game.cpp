@@ -4,7 +4,7 @@
 #include "RenderManager.h"
 #include <iostream>
 
-Game::Game() : 
+Game::Game() noexcept :
 	windowConfig({ 1250, 700, "Snake"}),
 	apple_obj(),
 	player_obj()
@@ -53,7 +53,7 @@ void Game::QueueGameObjectsForRendering()
 	apple_obj.QueueAppleForRendering(render_manager);
 }
 
-void Game::ClearRenderManager() {
+void Game::ClearRenderManager() noexcept {
 
 	render_manager.ClearRenderQueue();
 
@@ -64,26 +64,26 @@ std::vector<RenderManager::RenderEntry> Game::GetRenderQueue()
 	return render_manager.render_queue;
 }
 
-int Game::GetGameHeight() {
+int Game::GetGameHeight() noexcept {
 
 	return windowConfig.height;
 
 }
 
-int Game::GetGameWidth() {
+int Game::GetGameWidth() noexcept {
 
 	return windowConfig.width;
 
 }
 
-const char* Game::GetGameTitle() {
+const char* Game::GetGameTitle() noexcept {
 
 	return windowConfig.title;
 
 }
 
 
-void Game::PassInputToPlayer(SDL_Keycode key)
+void Game::PassInputToPlayer(SDL_Keycode key) noexcept
 {
 	player_obj.InputToMovementDirection(key);
 }

@@ -12,16 +12,16 @@ class Game
 
 public:
 
-	Game();
+	Game() noexcept;
 
 	void Update();
 	
-	int GetGameWidth();
-	int GetGameHeight();
-	const char* GetGameTitle();
+	int GetGameWidth() noexcept;
+	int GetGameHeight() noexcept;
+	const char* GetGameTitle() noexcept;
 
-	void ClearRenderManager();
-	void PassInputToPlayer(SDL_Keycode key);
+	void ClearRenderManager() noexcept;
+	void PassInputToPlayer(SDL_Keycode key) noexcept;
 
 	std::vector<RenderManager::RenderEntry> GetRenderQueue();
 

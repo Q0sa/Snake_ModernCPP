@@ -10,7 +10,7 @@ class Apple
 {
 public:
 
-	Apple();
+	Apple() noexcept;
 
 	void QueueAppleForRendering(RenderManager& renderManager);
 	void SetRandomPosition();
