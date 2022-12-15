@@ -11,8 +11,12 @@ class Player
 {
 
 public:
-
+	
 	Player();
+	
+	enum class SNAKE_PART_TYPE { HEAD, NEW_PART};
+
+	void AddSnakePart(const SNAKE_PART_TYPE& part_type);
 
 	void InputToMovementDirection(SDL_Keycode key);
 	
@@ -20,8 +24,6 @@ public:
 	void Update();
 	void ResetPlayer();
 
-	enum class SNAKE_PART_TYPE { HEAD, NEW_PART};
-	void AddSnakePart(const SNAKE_PART_TYPE& part_type);
 	
 	int GetSnakeSize();
 

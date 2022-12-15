@@ -16,15 +16,14 @@ public:
 
 	void Update();
 	
-	void ClearRenderManager();
-
 	int GetGameWidth();
 	int GetGameHeight();
 	const char* GetGameTitle();
 
-	std::vector<RenderManager::RenderEntry> GetRenderQueue();
-
+	void ClearRenderManager();
 	void PassInputToPlayer(SDL_Keycode key);
+
+	std::vector<RenderManager::RenderEntry> GetRenderQueue();
 
 private:
 
@@ -36,10 +35,10 @@ private:
 
 	WindowConfig windowConfig = {};
 
-	Player playerObj = {};
-	Apple appleObj = {};
+	Player player_obj = {};
+	Apple apple_obj = {};
 
-	RenderManager renderManager = {};
+	RenderManager render_manager = {};
 
 	void QueueGameObjectsForRendering();
 };

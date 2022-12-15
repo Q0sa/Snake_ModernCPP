@@ -5,12 +5,12 @@
 void  RenderManager::ClearRenderQueue()
 {
 
-	renderQueue.clear();
+	render_queue.clear();
 
 }
 
 
 void RenderManager::PushRectEntryToRenderQueue(const Rectangle& rect, const Color& color, const Transform& trans)
 {
-	renderQueue.push_back({ rect, color, trans });
+	render_queue.push_back({ rect, color, trans });
 }

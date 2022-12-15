@@ -6,8 +6,8 @@
 
 Game::Game() : 
 	windowConfig({ 1250, 700, "Snake"}),
-	appleObj(),
-	playerObj()
+	apple_obj(),
+	player_obj()
 {
 
 }
@@ -16,31 +16,31 @@ Game::Game() :
 void Game::Update()
 {
 
-	playerObj.Update();
+	player_obj.Update();
 	
 
-	for (int i = 0; i < playerObj.GetSnakeSize(); i++)
+	for (int i = 0; i < player_obj.GetSnakeSize(); i++)
 	{
-		if (playerObj.GetSnakeHeadPosition() == playerObj.GetSnakePartPostion(i))
+		if (player_obj.GetSnakeHeadPosition() == player_obj.GetSnakePartPostion(i))
 		{
-			playerObj.ResetPlayer();
+			player_obj.ResetPlayer();
 		}
 	}
 
-	if (playerObj.GetSnakeHeadPosition().x > windowConfig.width || playerObj.GetSnakeHeadPosition().x < 0)
+	if (player_obj.GetSnakeHeadPosition().x > windowConfig.width || player_obj.GetSnakeHeadPosition().x < 0)
 	{
-		playerObj.ResetPlayer();
+		player_obj.ResetPlayer();
 	}
 
-	if (playerObj.GetSnakeHeadPosition().y > windowConfig.height || playerObj.GetSnakeHeadPosition().y < 0)
+	if (player_obj.GetSnakeHeadPosition().y > windowConfig.height || player_obj.GetSnakeHeadPosition().y < 0)
 	{
-		playerObj.ResetPlayer();
+		player_obj.ResetPlayer();
 	}
 
-	if (playerObj.GetSnakeHeadPosition() == appleObj.GetPosition())
+	if (player_obj.GetSnakeHeadPosition() == apple_obj.GetPosition())
 	{
-		playerObj.AddSnakePart(Player::SNAKE_PART_TYPE::NEW_PART);
-		appleObj.SetRandomPosition();
+		player_obj.AddSnakePart(Player::SNAKE_PART_TYPE::NEW_PART);
+		apple_obj.SetRandomPosition();
 	}
 
 	QueueGameObjectsForRendering();
@@ -49,19 +49,19 @@ void Game::Update()
 
 void Game::QueueGameObjectsForRendering()
 {
-	playerObj.QueueSnakeForRendering(renderManager);
-	appleObj.QueueAppleForRendering(renderManager);
+	player_obj.QueueSnakeForRendering(render_manager);
+	apple_obj.QueueAppleForRendering(render_manager);
 }
 
 void Game::ClearRenderManager() {
 
-	renderManager.ClearRenderQueue();
+	render_manager.ClearRenderQueue();
 
 }
 
 std::vector<RenderManager::RenderEntry> Game::GetRenderQueue()
 {
-	return renderManager.renderQueue;
+	return render_manager.render_queue;
 }
 
 int Game::GetGameHeight() {
@@ -85,7 +85,7 @@ const char* Game::GetGameTitle() {
 
 void Game::PassInputToPlayer(SDL_Keycode key)
 {
-	playerObj.InputToMovementDirection(key);
+	player_obj.InputToMovementDirection(key);
 }
 
 
