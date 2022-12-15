@@ -5,7 +5,6 @@
 
 
 Player::Player() :
-	player_score(0),
 	size(10),
 	movement_speed(10.0f),
 	starting_x(300.0f),
@@ -184,12 +183,16 @@ void Player::MoveSnakeBody() {
 	
 	snake_body.front().trans.SetPosition(headBodyDifference.x, headBodyDifference.y);
 	
-	
+	PlayerPart tempPart1 = {};
+	PlayerPart tempPart2 = snake_body.front();
 
-	for (int i = snake_body.size(); i < 0; i--)
+	for (int i = 0; i < snake_body.size(); i++)
 	{
 
-		snake_body.at(i + 1) = snake_body.at(i);
+		 tempPart1 = tempPart2;
+		 tempPart2 = snake_body.at(i);
+		
+		snake_body.at(i) = tempPart1;
 
 	}
 	
@@ -242,20 +245,37 @@ void Player::AddSnakePart(const SNAKE_PART_TYPE& part_type) {
 
 }
 
-Vector2 Player::GetNewBodyPosition(const Vector2& last_part_pos, const Vector2& before_last_part_pos) {
-
-	return last_part_pos + (last_part_pos - before_last_part_pos);
-
-}
-
-
 void Player::ResetPlayer()
 {
-	player_score = 0;
 	move_direction = MOVE_DIRECTION::NONE;
 
 	snake_body.clear();
 	AddSnakePart(SNAKE_PART_TYPE::HEAD);
 
 	trans.SetPosition(starting_x, starting_y);
+}
+
+
+int Player::GetSnakeSize(){
+
+	return snake_body.size();
+
+}
+
+Vector2 Player::GetSnakeHeadPosition() {
+
+	return trans.GetPosition();
+
+}
+
+Vector2 Player::GetSnakePartPostion(const int& index) {
+
+	return snake_body.at(index).trans.GetPosition();
+
+}
+
+Vector2 Player::GetNewBodyPosition(const Vector2& last_part_pos, const Vector2& before_last_part_pos) {
+
+	return last_part_pos + (last_part_pos - before_last_part_pos);
+
 }

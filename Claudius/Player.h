@@ -14,21 +14,6 @@ public:
 
 	Player();
 
-	struct PlayerPart
-	{
-		Transform trans;
-		Color color;
-		Rectangle rect;
-	};
-
-	static const int player_size = 50;
-	PlayerPart parts[player_size];
-	
-	Transform trans;
-	Color color;
-	Rectangle rect;
-
-
 	void InputToMovementDirection(SDL_Keycode key);
 	
 	void QueueSnakeForRendering(RenderManager& renderManager);		
@@ -37,12 +22,25 @@ public:
 
 	enum class SNAKE_PART_TYPE { HEAD, NEW_PART};
 	void AddSnakePart(const SNAKE_PART_TYPE& part_type);
+	
+	int GetSnakeSize();
 
-	int player_score = 0;
+	Vector2 GetSnakeHeadPosition();
+	Vector2 GetSnakePartPostion(const int& index);
 
 
 
 private:
+	struct PlayerPart
+	{
+		Transform trans;
+		Color color;
+		Rectangle rect;
+	};
+
+	Transform trans;
+	Color color;
+	Rectangle rect;
 
 	enum class MOVE_DIRECTION
 	{
@@ -63,17 +61,10 @@ private:
 	const float starting_x = {};
 	const float starting_y = {};
 
-	bool new_snake = false;
-
-	float x_array_difference[player_size] = {};
-	float y_array_difference[player_size] = {};
-
 	std::vector <PlayerPart> snake_body = {};
 
-
-
-	bool isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_input, const MOVE_DIRECTION& current_movement_direction);
 	void Movement();
+	bool isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_input, const MOVE_DIRECTION& current_movement_direction);
 	Vector2 GetNewBodyPosition(const Vector2& last_part_pos, const Vector2& before_last_part_pos );
 
 	void MoveSnakeBody();

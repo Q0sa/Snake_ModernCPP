@@ -19,25 +19,25 @@ void Game::Update()
 	playerObj.Update();
 	
 
-	for (int i = 0; i < playerObj.player_score; i++)
+	for (int i = 0; i < playerObj.GetSnakeSize(); i++)
 	{
-		if (playerObj.trans.GetPosition() == playerObj.parts[i].trans.GetPosition())
+		if (playerObj.GetSnakeHeadPosition() == playerObj.GetSnakePartPostion(i))
 		{
 			playerObj.ResetPlayer();
 		}
 	}
 
-	if (playerObj.trans.GetX() > windowConfig.width || playerObj.trans.GetX() < 0)
+	if (playerObj.GetSnakeHeadPosition().x > windowConfig.width || playerObj.GetSnakeHeadPosition().x < 0)
 	{
 		playerObj.ResetPlayer();
 	}
 
-	if (playerObj.trans.GetY() > windowConfig.height || playerObj.trans.GetY() < 0)
+	if (playerObj.GetSnakeHeadPosition().y > windowConfig.height || playerObj.GetSnakeHeadPosition().y < 0)
 	{
 		playerObj.ResetPlayer();
 	}
 
-	if (playerObj.trans.GetPosition() == appleObj.GetPosition())
+	if (playerObj.GetSnakeHeadPosition() == appleObj.GetPosition())
 	{
 		playerObj.AddSnakePart(Player::SNAKE_PART_TYPE::NEW_PART);
 		appleObj.SetRandomPosition();
