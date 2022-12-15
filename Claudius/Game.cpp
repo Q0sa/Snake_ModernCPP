@@ -4,56 +4,52 @@
 #include "RenderManager.h"
 #include <iostream>
 
-Game::Game() : windowConfig({ 1250, 700, "Snake"})
+Game::Game() : 
+	windowConfig({ 1250, 700, "Snake"}),
+	appleObj(),
+	playerObj()
 {
-	playerOne.Initialize();
-	apple.Initialize(10, 10);
-}
 
-Game::~Game()
-{
 }
 
 
 void Game::Update()
 {
-	
 
-	playerOne.Update();
+	playerObj.Update();
 
-	for (int i = 0; i < playerOne.player_score; i++)
+	for (int i = 0; i < playerObj.player_score; i++)
 	{
-		if (playerOne.trans.GetPosition() == playerOne.parts[i].trans.GetPosition())
+		if (playerObj.trans.GetPosition() == playerObj.parts[i].trans.GetPosition())
 		{
-			playerOne.ResetPlayer();
+			playerObj.ResetPlayer();
 		}
 	}
 
-	if (playerOne.trans.GetX() > windowConfig.width || playerOne.trans.GetX() < 0)
+	if (playerObj.trans.GetX() > windowConfig.width || playerObj.trans.GetX() < 0)
 	{
-		playerOne.ResetPlayer();
+		playerObj.ResetPlayer();
 	}
 
-	if (playerOne.trans.GetY() > windowConfig.height || playerOne.trans.GetY() < 0)
+	if (playerObj.trans.GetY() > windowConfig.height || playerObj.trans.GetY() < 0)
 	{
-		playerOne.ResetPlayer();
+		playerObj.ResetPlayer();
 	}
 
-	if (playerOne.trans.GetPosition() == apple.trans.GetPosition())
+	if (playerObj.trans.GetPosition() == appleObj.GetPosition())
 	{
-		playerOne.player_score++;
-		apple.trans.SetPosition((rand() % 125) * 10.0f, (rand() % 70) * 10.0f);
+		playerObj.player_score++;
+		appleObj.SetRandomPosition();
 	}
 
 	QueueGameObjectsForRendering();
 
 }
 
-
 void Game::QueueGameObjectsForRendering()
 {
-	playerOne.QueueSnakeForRendering(renderManager);
-	apple.QueueAppleForRendering(renderManager);
+	playerObj.QueueSnakeForRendering(renderManager);
+	appleObj.QueueAppleForRendering(renderManager);
 }
 
 void Game::ClearRenderManager() {
@@ -88,7 +84,7 @@ const char* Game::GetGameTitle() {
 
 void Game::PassInputToPlayer(SDL_Keycode key)
 {
-	playerOne.InputToMovementDirection(key);
+	playerObj.InputToMovementDirection(key);
 }
 
 

@@ -6,16 +6,24 @@
 
 struct RenderManager;
 
-struct Apple
+class Apple
 {
+public:
 
 	Apple();
+
 	void QueueAppleForRendering(RenderManager& renderManager);
-	void Initialize(unsigned int width, unsigned int height);
+	void SetRandomPosition();
+
+	Vector2 GetPosition();
+
+private:
 
 	Rectangle rect;
 	Color color;
 	Transform trans;
 
-	bool new_apple = false;
+	int size = {};
+
+	Vector2 GenerateRandomPosition();
 };

@@ -11,17 +11,8 @@ class Game
 {
 
 public:
-	
-	struct WindowConfig {
-		int width = {};
-		int height = {};
-		const char* title = {};
-	};
-
-
 
 	Game();
-	~Game();
 
 	void Update();
 	
@@ -37,10 +28,16 @@ public:
 
 private:
 
+	struct WindowConfig {
+		int width = {};
+		int height = {};
+		const char* title = {};
+	};
+
 	WindowConfig windowConfig = {};
 
-	Player playerOne = {};
-	Apple apple = {};
+	Player playerObj = {};
+	Apple appleObj = {};
 
 	RenderManager renderManager = {};
 

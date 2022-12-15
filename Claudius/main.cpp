@@ -10,6 +10,9 @@
 
 int main()
 {
+
+	srand(time(NULL));
+
 	bool running = true;
 	
 	Game game = {};

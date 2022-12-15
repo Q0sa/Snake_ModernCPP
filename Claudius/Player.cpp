@@ -3,20 +3,29 @@
 #include "RenderManager.h"
 #include <iostream>
 
-void Player::Initialize()
-{
-	color.SetColor(0,255,0,0);
-	rect.SetBounds(0, 0, size, size);
-	trans.SetPosition(starting_x, starting_y);
-	player_score = 0;
 
+Player::Player() : 
+	player_score(0),
+	size(10),
+	movement_speed(10.0f),
+	starting_x(300.0f),
+	starting_y(300.0f),
+	color(0, 255, 0, 0),
+	rect(0, 0, size, size),
+	trans(starting_x, starting_y, 0.0f)
+
+{
+
+	
 	for (int i = 0; i < player_size; i++)
 	{
 		parts[i].color.SetColor(255, 0, 0, 0);
 		parts[i].rect.SetBounds(0, 0, size, size);
 		parts[i].trans.SetPosition(trans.GetX(), trans.GetY());
 	}
+
 }
+
 
 void Player::QueueSnakeForRendering(RenderManager& renderManager)
 {

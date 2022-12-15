@@ -3,11 +3,16 @@
 #include "Color.h"
 #include "Rectangle.h"
 #include "SDL_keycode.h"
+#include "RenderManager.h"
 
-struct RenderManager;
 
-struct Player
+class Player
 {
+
+public:
+
+	Player();
+
 	struct PlayerPart
 	{
 		Transform trans;
@@ -22,6 +27,18 @@ struct Player
 	Color color;
 	Rectangle rect;
 
+
+	void InputToMovementDirection(SDL_Keycode key);
+	
+	void QueueSnakeForRendering(RenderManager& renderManager);		
+	void Update();
+	void ResetPlayer();
+
+
+	int player_score = 0;
+
+private:
+
 	enum class MOVE_DIRECTION
 	{
 
@@ -35,19 +52,11 @@ struct Player
 
 	MOVE_DIRECTION move_direction = {};
 
-	void InputToMovementDirection(SDL_Keycode key);
-	bool isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_input, const MOVE_DIRECTION& current_movement_direction);
-	void Movement();
-	
-	void Initialize();
-	void QueueSnakeForRendering(RenderManager& renderManager);		
-	void Update();
-	void ResetPlayer();
 
-	int size = 10;
-	const float movement_speed = 10.0f;
-	const float starting_x = 300.0f;
-	const float starting_y = 300.0f;
+	int size = {};
+	const float movement_speed = {};
+	const float starting_x = {};
+	const float starting_y = {};
 
 
 	bool new_snake = false;
@@ -55,5 +64,6 @@ struct Player
 	float x_array_difference[player_size] = {};
 	float y_array_difference[player_size] = {};
 
-	int player_score = 0;
+	bool isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_input, const MOVE_DIRECTION& current_movement_direction);
+	void Movement();
 };
