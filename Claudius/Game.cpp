@@ -17,6 +17,7 @@ void Game::Update()
 {
 
 	playerObj.Update();
+	
 
 	for (int i = 0; i < playerObj.player_score; i++)
 	{
