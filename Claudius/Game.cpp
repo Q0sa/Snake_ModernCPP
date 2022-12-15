@@ -38,7 +38,7 @@ void Game::Update()
 
 	if (playerObj.trans.GetPosition() == appleObj.GetPosition())
 	{
-		playerObj.player_score++;
+		playerObj.AddSnakePart(Player::SNAKE_PART_TYPE::NEW_PART);
 		appleObj.SetRandomPosition();
 	}
 

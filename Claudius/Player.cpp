@@ -4,25 +4,20 @@
 #include <iostream>
 
 
-Player::Player() : 
+Player::Player() :
 	player_score(0),
 	size(10),
 	movement_speed(10.0f),
 	starting_x(300.0f),
 	starting_y(300.0f),
-	color(0, 255, 0, 0),
-	rect(0, 0, size, size),
-	trans(starting_x, starting_y, 0.0f)
+	color(0, 255, 0, 0)
 
 {
+	rect.SetBounds(0, 0, size, size),
+	trans.SetPosition(starting_x, starting_y);
 
-	
-	for (int i = 0; i < player_size; i++)
-	{
-		parts[i].color.SetColor(255, 0, 0, 0);
-		parts[i].rect.SetBounds(0, 0, size, size);
-		parts[i].trans.SetPosition(trans.GetX(), trans.GetY());
-	}
+	AddSnakePart(SNAKE_PART_TYPE::HEAD);
+
 
 }
 
@@ -31,23 +26,15 @@ void Player::QueueSnakeForRendering(RenderManager& renderManager)
 {
 	renderManager.PushRectEntryToRenderQueue(rect, color, trans);
 
-	for (int i = 0; i < player_score; i++)
+	for (int i = 0; i < snake_body.size(); i++)
 	{
-		renderManager.PushRectEntryToRenderQueue(parts[i].rect, parts[i].color, parts[i].trans);
+		renderManager.PushRectEntryToRenderQueue(snake_body.at(i).rect, snake_body.at(i).color, snake_body.at(i).trans);
 	}
 }
 
 void Player::Update()
 {
-	x_array_difference[0] = trans.GetX() - parts[0].trans.GetX();
-	y_array_difference[0] = trans.GetY() - parts[0].trans.GetY();
-
-	for (int i = 1; i < (player_size - 1); i++)
-	{
-			x_array_difference[i] = parts[i].trans.GetX() - parts[i + 1].trans.GetX();
-			y_array_difference[i] = parts[i].trans.GetY() - parts[i + 1].trans.GetY();
-	}
-
+	
 	Movement();
 
 }
@@ -62,45 +49,29 @@ void Player::Movement() {
 
 	case Player::MOVE_DIRECTION::UP:
 		trans.ChangePosition(0, -movement_speed);
-		parts[0].trans.ChangePosition(x_array_difference[0], y_array_difference[0]);
+		MoveSnakeBody();
 
-		for (int i = 1; i < player_size; i++)
-		{
-			parts[i].trans.ChangePosition(x_array_difference[i - 1], y_array_difference[i - 1]);
-		}
 
 		break;
 
 	case Player::MOVE_DIRECTION::DOWN:
 		trans.ChangePosition(0, movement_speed);
-		parts[0].trans.ChangePosition(x_array_difference[0], y_array_difference[0]);
+		MoveSnakeBody();
 
-		for (int i = 1; i < player_size; i++)
-		{
-			parts[i].trans.ChangePosition(x_array_difference[i - 1], y_array_difference[i - 1]);
-		}
 
 		break;
 
 	case Player::MOVE_DIRECTION::LEFT:
 		trans.ChangePosition(-movement_speed, 0);
-		parts[0].trans.ChangePosition(x_array_difference[0], y_array_difference[0]);
+		MoveSnakeBody();
 
-		for (int i = 1; i < player_size; i++)
-		{
-			parts[i].trans.ChangePosition(x_array_difference[i - 1], y_array_difference[i - 1]);
-		}
 
 		break;
 
 	case Player::MOVE_DIRECTION::RIGHT:
-		trans.ChangePosition(movement_speed, 0);
-		parts[0].trans.ChangePosition(x_array_difference[0], y_array_difference[0]);
 
-		for (int i = 1; i < player_size; i++)
-		{
-			parts[i].trans.ChangePosition(x_array_difference[i - 1], y_array_difference[i - 1]);
-		}
+		trans.ChangePosition(movement_speed, 0);
+		MoveSnakeBody();
 
 		break;
 
@@ -177,10 +148,68 @@ bool Player::isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_inpu
 
 }
 
+void Player::MoveSnakeBody() {
+
+	snake_body.front().trans = trans;
+
+	for (int i = 0; i < snake_body.size() - 1; i++)
+	{
+		//parts[i].trans.ChangePosition(x_array_difference[i - 1], y_array_difference[i - 1]);
+		snake_body.at(i + 1) = snake_body.at(i);
+
+	}
+
+}
+
+void Player::AddSnakePart(const SNAKE_PART_TYPE& part_type) {
+
+	PlayerPart newPart = {};
+
+	newPart.color.SetColor(255, 0, 0, 0);
+	newPart.rect.SetBounds(0, 0, size, size);
+
+	switch (part_type)
+	{
+	case SNAKE_PART_TYPE::HEAD:
+
+		newPart.trans.SetPosition(trans.GetX(), trans.GetY());
+
+		break;
+
+	case SNAKE_PART_TYPE::NEW_PART:
+		{
+		
+		Vector2 NewPartPosition = GetNewBodyPosition(snake_body.back().trans.GetPosition(),
+												     snake_body.at(snake_body.size() - 1).trans.GetPosition());
+
+		newPart.trans.SetPosition(NewPartPosition.x, NewPartPosition.y);
+
+		break;
+
+		}
+
+	default:
+		return;
+		
+	}
+	
+	snake_body.push_back(newPart);
+
+}
+
+Vector2 Player::GetNewBodyPosition(const Vector2& last_part_pos, const Vector2& before_last_part_pos) {
+
+	return last_part_pos + (last_part_pos - before_last_part_pos);
+
+}
+
 void Player::ResetPlayer()
 {
 	player_score = 0;
 	move_direction = MOVE_DIRECTION::NONE;
+
+	snake_body.clear();
+	AddSnakePart(SNAKE_PART_TYPE::HEAD);
 
 	trans.SetPosition(starting_x, starting_y);
 }

@@ -6,10 +6,9 @@
 
 Apple::Apple() :
 	size(10),
-	color(0, 255, 0, 0),
-	rect(0, 0, size, size)
+	color(0, 255, 0, 0)
 {
-
+	rect.SetBounds(0, 0, size, size),
 	SetRandomPosition();
 
 }
