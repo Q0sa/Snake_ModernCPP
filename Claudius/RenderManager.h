@@ -6,9 +6,9 @@ struct Transform;
 struct Rectangle;
 struct Color;
 
-struct RenderManager
+class RenderManager
 {
-
+public:
 	struct RenderEntry
 	{
 		const Rectangle& rect;

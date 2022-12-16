@@ -3,8 +3,7 @@
 #include "Rectangle.h"
 #include "Color.h"
 #include "Transform.h"
-
-struct RenderManager;
+#include "RenderManager.h"
 
 class Apple
 {
