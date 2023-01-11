@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include "SDL.h"
 #include "Apple.h"
 #include "Player.h"
 #include "RenderManager.h"
@@ -14,6 +15,7 @@ public:
 
 	Game() noexcept;
 
+	void Enter();
 	void Update();
 	
 	int GetGameWidth() noexcept;
@@ -23,6 +25,8 @@ public:
 	void ClearRenderManager() noexcept;
 	void PassInputToPlayer(SDL_Keycode key) noexcept;
 
+
+
 	std::vector<RenderManager::RenderEntry> GetRenderQueue();
 
 private:
@@ -30,15 +34,18 @@ private:
 	struct WindowConfig {
 		int width = {};
 		int height = {};
-		const char* title = {};
+		std::string_view title = {};
 	};
 
 	WindowConfig windowConfig = {};
 
-	Player player_obj = {};
-	Apple apple_obj = {};
+	Player player = {};
+	Apple apple = {};
 
 	RenderManager render_manager = {};
+
+	bool running = {};
+
 
 	void QueueGameObjectsForRendering();
 };

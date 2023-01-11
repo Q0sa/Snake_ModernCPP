@@ -6,41 +6,120 @@
 
 Game::Game() noexcept :
 	windowConfig({ 1250, 700, "Snake"}),
-	apple_obj(),
-	player_obj()
+	apple(),
+	player()
+
 {
 
 }
 
+void Game::Enter() {
+
+	srand(time(nullptr));
+
+	running = true;
+
+	SDL_Init(SDL_INIT_EVERYTHING);
+	SDL_Window* window = SDL_CreateWindow(windowConfig.title.data(),
+		SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED,
+		windowConfig.width,
+		windowConfig.height,
+		SDL_WindowFlags::SDL_WINDOW_SHOWN);
+
+	if (window == nullptr)
+	{
+		std::cout << SDL_GetError() << "\n";
+		SDL_DestroyWindow(window);
+
+
+	}
+
+	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RendererFlags::SDL_RENDERER_ACCELERATED);
+	if (renderer == nullptr)
+	{
+		std::cout << SDL_GetError() << "\n";
+
+		SDL_DestroyRenderer(renderer);
+		SDL_DestroyWindow(window);
+
+	}
+
+
+	while (running)
+	{
+		SDL_Event event = {};
+		while (SDL_PollEvent(&event))
+		{
+			switch (event.type)
+			{
+
+			case SDL_KEYDOWN: PassInputToPlayer(event.key.keysym.sym);
+				break;
+
+			case SDL_QUIT: running = false;
+				break;
+
+
+			default: break;
+			}
+		}
+
+		Update();
+
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+		SDL_RenderClear(renderer);
+
+		for (auto&& entry : GetRenderQueue())
+		{
+			SDL_SetRenderDrawColor(renderer, entry.color.r, entry.color.g, entry.color.b, entry.color.a);
+			SDL_Rect rect{ static_cast<int>(entry.trans.position.x),
+						   static_cast<int>(entry.trans.position.y),
+						   entry.rect.w,
+						   entry.rect.h };
+
+			SDL_RenderFillRect(renderer, &rect);
+		}
+		SDL_RenderPresent(renderer);
+
+		ClearRenderManager();
+
+		SDL_Delay(1000 / 20);
+	}
+
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+
+}
 
 void Game::Update()
 {
 
-	player_obj.Update();
+	player.Update();
 	
 
-	for (int i = 0; i < player_obj.GetSnakeSize(); i++)
+	for (int i = 0; i < player.GetSnakeSize(); i++)
 	{
-		if (player_obj.GetSnakeHeadPosition() == player_obj.GetSnakePartPostion(i))
+		if (player.GetSnakeHeadPosition() == player.GetSnakePartPostion(i))
 		{
-			player_obj.ResetPlayer();
+			player.ResetPlayer();
 		}
 	}
 
-	if (player_obj.GetSnakeHeadPosition().x > windowConfig.width || player_obj.GetSnakeHeadPosition().x < 0)
+	if (player.GetSnakeHeadPosition().x > windowConfig.width || player.GetSnakeHeadPosition().x < 0)
 	{
-		player_obj.ResetPlayer();
+		player.ResetPlayer();
 	}
 
-	if (player_obj.GetSnakeHeadPosition().y > windowConfig.height || player_obj.GetSnakeHeadPosition().y < 0)
+	if (player.GetSnakeHeadPosition().y > windowConfig.height || player.GetSnakeHeadPosition().y < 0)
 	{
-		player_obj.ResetPlayer();
+		player.ResetPlayer();
 	}
 
-	if (player_obj.GetSnakeHeadPosition() == apple_obj.GetPosition())
+	if (player.GetSnakeHeadPosition() == apple.GetPosition())
 	{
-		player_obj.AddSnakePart(Player::SNAKE_PART_TYPE::NEW_PART);
-		apple_obj.SetRandomPosition();
+		player.AddSnakePart(Player::SNAKE_PART_TYPE::NEW_PART);
+		apple.SetRandomPosition();
 	}
 
 	QueueGameObjectsForRendering();
@@ -49,8 +128,8 @@ void Game::Update()
 
 void Game::QueueGameObjectsForRendering()
 {
-	player_obj.QueueSnakeForRendering(render_manager);
-	apple_obj.QueueAppleForRendering(render_manager);
+	player.QueueSnakeForRendering(render_manager);
+	apple.QueueAppleForRendering(render_manager);
 }
 
 void Game::ClearRenderManager() noexcept {
@@ -64,28 +143,14 @@ std::vector<RenderManager::RenderEntry> Game::GetRenderQueue()
 	return render_manager.render_queue;
 }
 
-int Game::GetGameHeight() noexcept {
 
-	return windowConfig.height;
 
-}
 
-int Game::GetGameWidth() noexcept {
-
-	return windowConfig.width;
-
-}
-
-const char* Game::GetGameTitle() noexcept {
-
-	return windowConfig.title;
-
-}
 
 
 void Game::PassInputToPlayer(SDL_Keycode key) noexcept
 {
-	player_obj.InputToMovementDirection(key);
+	player.InputToMovementDirection(key);
 }
 
 
