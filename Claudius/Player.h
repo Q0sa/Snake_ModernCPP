@@ -12,7 +12,7 @@ class Player
 
 public:
 	
-	Player() noexcept;
+	Player() ;
 	
 	enum class SNAKE_PART_TYPE { HEAD, NEW_PART};
 

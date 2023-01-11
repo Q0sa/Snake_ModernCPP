@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-Player::Player() noexcept :
+Player::Player()  :
 	size(10),
 	movement_speed(10.0f),
 	starting_x(300.0f),
@@ -153,7 +153,7 @@ bool Player::isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_inpu
 void Player::MoveSnakeBody() {
 
 	
-	
+
 	Vector2 headBodyDifference = trans.GetPosition();
 	
 	switch (move_direction)
