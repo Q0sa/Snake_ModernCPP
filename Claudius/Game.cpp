@@ -22,6 +22,7 @@ void Game::Enter() {
 
 	Window window{ window_config.title, window_config.width, window_config.height };
 	Renderer renderer { window };
+	RenderManager render_manager {};
 	
 	running = true;
 
@@ -103,11 +104,11 @@ void Game::Update()
 		apple.SetRandomPosition();
 	}
 
-	QueueGameObjectsForRendering();
+	QueueGameObjectsForRendering(render_manager);
 
 }
 
-void Game::QueueGameObjectsForRendering()
+void Game::QueueGameObjectsForRendering( RenderManager& render_manager)
 {
 	player.QueueSnakeForRendering(render_manager);
 	apple.QueueAppleForRendering(render_manager);
@@ -125,13 +126,9 @@ std::vector<RenderManager::RenderEntry> Game::GetRenderQueue()
 }
 
 
-
-
-
-
 void Game::PassInputToPlayer(SDL_Keycode key) noexcept
 {
-	player.InputToMovementDirection(key);
+	player.InputToMovement(key);
 }
 
 

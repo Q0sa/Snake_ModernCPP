@@ -45,6 +45,5 @@ private:
 
 	bool running = {};
 
-
-	void QueueGameObjectsForRendering();
+	void QueueGameObjectsForRendering(RenderManager& render_manager);
 };

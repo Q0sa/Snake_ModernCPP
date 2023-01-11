@@ -16,6 +16,8 @@ public:
 		const Transform& trans;
 	};
 
+	void Draw();
+
 	void PushRectEntryToRenderQueue(const Rectangle& rect, const Color& color, const Transform& trans);
 	void ClearRenderQueue() noexcept;
 
