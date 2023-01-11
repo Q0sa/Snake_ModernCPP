@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 #include "SDL.h"
+#include "Window.h"
+#include "Renderer.h"
 #include "Apple.h"
 #include "Player.h"
 #include "RenderManager.h"
@@ -18,10 +20,7 @@ public:
 	void Enter();
 	void Update();
 	
-	int GetGameWidth() noexcept;
-	int GetGameHeight() noexcept;
-	const char* GetGameTitle() noexcept;
-
+	
 	void ClearRenderManager() noexcept;
 	void PassInputToPlayer(SDL_Keycode key) noexcept;
 
@@ -37,7 +36,7 @@ private:
 		std::string_view title = {};
 	};
 
-	WindowConfig windowConfig = {};
+	WindowConfig window_config = {};
 
 	Player player = {};
 	Apple apple = {};

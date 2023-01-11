@@ -5,7 +5,7 @@
 #include <iostream>
 
 Game::Game() noexcept :
-	windowConfig({ 1250, 700, "Snake"}),
+	window_config({ 1250, 700, "Snake"}),
 	apple(),
 	player()
 
@@ -17,33 +17,13 @@ void Game::Enter() {
 
 	srand(time(nullptr));
 
-	running = true;
 
 	SDL_Init(SDL_INIT_EVERYTHING);
-	SDL_Window* window = SDL_CreateWindow(windowConfig.title.data(),
-		SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED,
-		windowConfig.width,
-		windowConfig.height,
-		SDL_WindowFlags::SDL_WINDOW_SHOWN);
 
-	if (window == nullptr)
-	{
-		std::cout << SDL_GetError() << "\n";
-		SDL_DestroyWindow(window);
-
-
-	}
-
-	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RendererFlags::SDL_RENDERER_ACCELERATED);
-	if (renderer == nullptr)
-	{
-		std::cout << SDL_GetError() << "\n";
-
-		SDL_DestroyRenderer(renderer);
-		SDL_DestroyWindow(window);
-
-	}
+	Window window{ window_config.title, window_config.width, window_config.height };
+	Renderer renderer { window };
+	
+	running = true;
 
 
 	while (running)
@@ -57,7 +37,9 @@ void Game::Enter() {
 			case SDL_KEYDOWN: PassInputToPlayer(event.key.keysym.sym);
 				break;
 
-			case SDL_QUIT: running = false;
+			case SDL_QUIT:
+				SDL_Quit();
+				running = false;
 				break;
 
 
@@ -87,8 +69,7 @@ void Game::Enter() {
 		SDL_Delay(1000 / 20);
 	}
 
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
+	
 
 }
 
@@ -106,12 +87,12 @@ void Game::Update()
 		}
 	}
 
-	if (player.GetSnakeHeadPosition().x > windowConfig.width || player.GetSnakeHeadPosition().x < 0)
+	if (player.GetSnakeHeadPosition().x > window_config.width || player.GetSnakeHeadPosition().x < 0)
 	{
 		player.ResetPlayer();
 	}
 
-	if (player.GetSnakeHeadPosition().y > windowConfig.height || player.GetSnakeHeadPosition().y < 0)
+	if (player.GetSnakeHeadPosition().y > window_config.height || player.GetSnakeHeadPosition().y < 0)
 	{
 		player.ResetPlayer();
 	}
