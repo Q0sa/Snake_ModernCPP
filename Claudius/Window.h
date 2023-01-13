@@ -8,7 +8,7 @@
 class Window {
 public:
 
-	Window(std::string_view window_title, const unsigned int width, const unsigned int height);
+	Window(std::string_view window_title, const int width, const int height);
 
 	SDL_Window* GetPointer() const noexcept;
 

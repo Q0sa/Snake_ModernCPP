@@ -15,9 +15,7 @@ Game::Game() noexcept :
 
 void Game::Enter() {
 
-	srand(time(nullptr));
-
-
+	
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	Window window{ window_config.title, window_config.width, window_config.height };
@@ -48,7 +46,7 @@ void Game::Enter() {
 
 }
 
-void Game::CheckCollisions()
+void Game::CheckCollisions() noexcept
 {
 
 
@@ -82,6 +80,7 @@ bool Game::PlayerIsSelfColliding() noexcept {
 bool Game::PlayerIsOutOfBounds() noexcept {
 
 	const SDL_Point player_head_pos = player.GetSnakeHeadPosition();
+
 
 	if (player_head_pos.x > window_config.width || player_head_pos.x < 0 ||
 		player_head_pos.y > window_config.height || player_head_pos.y < 0)

@@ -33,8 +33,6 @@ public:
 	void QueueSnakeForRendering(RenderManager& renderManager) noexcept;
 	void ResetPlayer() noexcept;
 
-	
-	//int GetSnakeSize() noexcept;
 
 	SDL_Point &GetSnakeHeadPosition() noexcept;
 	std::vector<SDL_Point> GetSnakeBodyPositions() noexcept;

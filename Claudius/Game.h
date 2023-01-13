@@ -22,8 +22,8 @@ public:
 private:
 
 	struct WindowConfig {
-	    const unsigned int width = {};
-	    const unsigned int height = {};
+	    int width = {};
+	    int height = {};
 		std::string_view title = {};
 	};
 
@@ -34,7 +34,7 @@ private:
 
 	bool running = {};
 
-	void CheckCollisions();
+	void CheckCollisions() noexcept;
 	
 	void UpdatePlayerInput(SDL_Keycode key) noexcept;
 	void InputEventCheck() noexcept;
