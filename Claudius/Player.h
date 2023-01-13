@@ -1,6 +1,4 @@
 #pragma once		
-#include "Color.h"
-#include "Vector2.h"
 #include "SDL_keycode.h"
 #include "RenderManager.h"
 #include <vector>
@@ -19,32 +17,31 @@ public:
 
 	struct PlayerPart
 	{
-		//Transform trans;
-		Vector2 pos;
-		//Rectangle rect;
+
+		 SDL_Point pos;
+
 	};
 	
 	enum class SNAKE_PART_TYPE { HEAD, NEW_PART};
 
-	void AddSnakePart(const SNAKE_PART_TYPE& part_type);
+	void AddSnakePart(const SNAKE_PART_TYPE& part_type) noexcept;
 
 	void Movement();
 
 	void HandleInput(SDL_Keycode key) noexcept;
 	
 	void QueueSnakeForRendering(RenderManager& renderManager) noexcept;
-	//void Update();
-	void ResetPlayer();
+	void ResetPlayer() noexcept;
 
 	
-	int GetSnakeSize() noexcept;
+	//int GetSnakeSize() noexcept;
 
-	Vector2 &GetSnakeHeadPosition() noexcept;
-	std::vector<Vector2> GetSnakeBodyPositions() noexcept;
-	Vector2& GetSnakeTailPosition() noexcept;
+	SDL_Point &GetSnakeHeadPosition() noexcept;
+	std::vector<SDL_Point> GetSnakeBodyPositions() noexcept;
+	SDL_Point& GetSnakeTailPosition() noexcept;
 
 
-
+	
 private:
 
 
@@ -59,7 +56,7 @@ private:
 
 	bool isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_input) noexcept;
 
-	void MoveHeadPos(const Vector2& pos) noexcept;
+	void MoveHeadPos(const SDL_Point& pos) noexcept;
 
 	PlayerPart &GetHead() noexcept;
 	PlayerPart& GetTail() noexcept;

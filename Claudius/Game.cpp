@@ -59,7 +59,7 @@ void Game::CheckCollisions()
 	if (PlayerIsEatingApple())
 	{
 		player.AddSnakePart(Player::SNAKE_PART_TYPE::NEW_PART);
-		apple.SetRandomPosition(Vector2(window_config.width, window_config.height));
+		apple.SetRandomPosition(SDL_Point(window_config.width, window_config.height));
 	}
 
 
@@ -67,12 +67,12 @@ void Game::CheckCollisions()
 
 bool Game::PlayerIsSelfColliding() noexcept {
 
-	for (const Vector2 pos : player.GetSnakeBodyPositions() | std::views::drop(2))
+	for (const SDL_Point pos : player.GetSnakeBodyPositions() | std::views::drop(2))
 	{
 
-		if (pos == player.GetSnakeHeadPosition()) 
+		if (pos.x == player.GetSnakeHeadPosition().x && pos.y == player.GetSnakeHeadPosition().y)
 			return true;
-
+		
 	}
 
 	return false;
@@ -81,7 +81,7 @@ bool Game::PlayerIsSelfColliding() noexcept {
 
 bool Game::PlayerIsOutOfBounds() noexcept {
 
-	const Vector2 player_head_pos = player.GetSnakeHeadPosition();
+	const SDL_Point player_head_pos = player.GetSnakeHeadPosition();
 
 	if (player_head_pos.x > window_config.width || player_head_pos.x < 0 ||
 		player_head_pos.y > window_config.height || player_head_pos.y < 0)
@@ -95,14 +95,17 @@ bool Game::PlayerIsOutOfBounds() noexcept {
 
 bool Game::PlayerIsEatingApple() noexcept {
 
-	if (player.GetSnakeHeadPosition() == apple.GetPosition())
+	const SDL_Point snake_head_pos = player.GetSnakeHeadPosition();
+	const SDL_Point apple_pos = apple.GetPosition();
+
+	if (snake_head_pos.x == apple_pos.x && snake_head_pos.y == apple_pos.y)
 		return true;
 	
 	return false;
 
 }
 
-void Game::QueueGameObjectsForRendering( RenderManager& render_manager)
+void Game::QueueGameObjectsForRendering( RenderManager& render_manager) noexcept
 {
 	player.QueueSnakeForRendering(render_manager);
 	apple.QueueAppleForRendering(render_manager);

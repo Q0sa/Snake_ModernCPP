@@ -9,7 +9,7 @@ void  RenderManager::ClearRenderQueue() noexcept
 }
 
 
-void RenderManager::PushRectEntryToRenderQueue(const Vector2& pos, const Color& color) noexcept
+void RenderManager::PushRectEntryToRenderQueue(const SDL_Point& pos, const SDL_Color& color) noexcept
 {
 
 	render_queue.push_back({ pos, color });
@@ -19,7 +19,7 @@ void RenderManager::PushRectEntryToRenderQueue(const Vector2& pos, const Color& 
 void RenderManager::RenderCurrentFrame( Renderer& renderer) noexcept {
 
 	
-	renderer.SetRenderColor(Color(0, 0, 0, 0));
+	renderer.SetRenderColor(SDL_Color(0, 0, 0, 0));
 	renderer.ClearRenderer();
 
 	RenderQueueToRects(renderer);
@@ -34,11 +34,10 @@ void RenderManager::RenderQueueToRects(Renderer& renderer) noexcept {
 
 	for (auto&& entry : render_queue)
 	{
-		//SDL_SetRenderDrawColor(renderer, entry.color.r, entry.color.g, entry.color.b, entry.color.a);
 
 		renderer.SetRenderColor(entry.color);
 
-		const SDL_Rect temp = renderer.CreateRect(entry.pos, Vector2(10, 10));
+		const SDL_Rect temp = renderer.CreateRect(entry.pos, SDL_Point(10, 10));
 
 		renderer.FillRect(temp);
 

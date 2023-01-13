@@ -3,8 +3,7 @@
 #include "SDL_render.h"
 #include "SDL_rect.h"
 #include "Renderer.h"
-#include "Vector2.h"
-#include "Color.h"
+
 #include <vector>
 
 
@@ -17,15 +16,12 @@ public:
 
 	struct RenderEntry
 	{
-		Vector2 pos{};
-		Color color{};
+		SDL_Point pos{};
+		SDL_Color color{};
 	};
 
-	std::vector<RenderEntry> render_queue = {};
-	//RenderManager(const Renderer& renderer);
 
-
-	void PushRectEntryToRenderQueue( const Vector2& pos, const Color& color ) noexcept;
+	void PushRectEntryToRenderQueue( const SDL_Point& pos, const SDL_Color& color ) noexcept;
 	
 	void RenderCurrentFrame(Renderer& renderer ) noexcept;
 	void ClearRenderQueue() noexcept;
@@ -35,5 +31,6 @@ public:
 private:
 	void RenderQueueToRects(Renderer& renderer) noexcept;
 
+	std::vector<RenderEntry> render_queue = {};
 	
 };

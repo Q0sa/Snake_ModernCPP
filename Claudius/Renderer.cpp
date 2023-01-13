@@ -24,13 +24,13 @@ SDL_Renderer* Renderer::GetPointer() noexcept {
 
 }
 
-void Renderer::SetRenderColor(const Color& color) noexcept {
+void Renderer::SetRenderColor(const SDL_Color& color) noexcept {
 
 	SDL_SetRenderDrawColor(renderer.get(), color.r, color.g, color.b, color.a);
 
 }
 
-SDL_Rect Renderer::CreateRect(const Vector2& pos, const Vector2& size) noexcept {
+SDL_Rect Renderer::CreateRect(const SDL_Point& pos, const SDL_Point& size) noexcept {
 
 	return SDL_Rect{ pos.x,
 				     pos.y,

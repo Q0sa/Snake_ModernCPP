@@ -20,7 +20,7 @@ void Player::QueueSnakeForRendering(RenderManager& renderManager) noexcept
 
 	for (auto& part : snake_body) {
 
-		renderManager.PushRectEntryToRenderQueue(part.pos, Color(0, 255, 0, 0));
+		renderManager.PushRectEntryToRenderQueue(part.pos, SDL_Color(0, 255, 0, 0));
 
 	}
 	
@@ -43,25 +43,25 @@ void Player::Movement()
 		{
 		case SDLK_UP:
 
-			MoveHeadPos(Vector2(0, -movement_speed));
+			MoveHeadPos(SDL_Point(0, -movement_speed));
 
 			break;
 
 		case SDLK_DOWN:
 
-			MoveHeadPos(Vector2(0, movement_speed));
+			MoveHeadPos(SDL_Point(0, movement_speed));
 
 			break;
 
 		case SDLK_RIGHT:
 
-			MoveHeadPos(Vector2(movement_speed, 0));
+			MoveHeadPos(SDL_Point(movement_speed, 0));
 
 			break;
 
 		case SDLK_LEFT:
 
-			MoveHeadPos(Vector2( -movement_speed, 0));
+			MoveHeadPos(SDL_Point( -movement_speed, 0));
 
 			break;
 
@@ -100,9 +100,11 @@ bool Player::isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_inpu
 
 }
 
-void Player::MoveHeadPos(const Vector2& move_amount) noexcept{
+void Player::MoveHeadPos(const SDL_Point& move_amount) noexcept{
 
-	GetHead().pos = GetHead().pos + move_amount;
+	const SDL_Point Pos_Before_Move = GetHead().pos;
+
+	GetHead().pos = SDL_Point(Pos_Before_Move.x + move_amount.x , Pos_Before_Move.y + move_amount.y);
 
 }
 
@@ -113,7 +115,7 @@ void Player::MoveSnakeBody() {
 }
 
 
-void Player::AddSnakePart(const SNAKE_PART_TYPE& part_type) {
+void Player::AddSnakePart(const SNAKE_PART_TYPE& part_type) noexcept{
 
 	PlayerPart newPart = {};
 
@@ -122,7 +124,7 @@ void Player::AddSnakePart(const SNAKE_PART_TYPE& part_type) {
 	{
 	case SNAKE_PART_TYPE::HEAD:
 
-		newPart.pos = Vector2(starting_x, starting_y);
+		newPart.pos = SDL_Point(starting_x, starting_y);
 
 		break;
 
@@ -141,7 +143,7 @@ void Player::AddSnakePart(const SNAKE_PART_TYPE& part_type) {
 
 }
 
-void Player::ResetPlayer()
+void Player::ResetPlayer() noexcept
 {
 	active_valid_input = {};
 
@@ -165,22 +167,22 @@ Player::PlayerPart& Player::GetTail() noexcept {
 
 }
 
-Vector2 &Player::GetSnakeHeadPosition() noexcept {
+SDL_Point&Player::GetSnakeHeadPosition() noexcept {
 
 	return GetHead().pos;
 
 }
 
-Vector2& Player::GetSnakeTailPosition() noexcept {
+SDL_Point& Player::GetSnakeTailPosition() noexcept {
 
 	return GetTail().pos;
 
 }
 
 
-std::vector<Vector2> Player::GetSnakeBodyPositions() noexcept {
+std::vector<SDL_Point> Player::GetSnakeBodyPositions() noexcept {
 
-	std::vector<Vector2> part_positions = {};
+	std::vector<SDL_Point> part_positions = {};
 
 	for (const PlayerPart part : snake_body | std::views::drop(1))
 	{

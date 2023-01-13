@@ -5,7 +5,7 @@
 
 Apple::Apple() noexcept :
 	size(10),
-	pos(320, 500)
+	pos(SDL_Point(320, 500))
 {
 
 
@@ -14,17 +14,17 @@ Apple::Apple() noexcept :
 
 void Apple::QueueAppleForRendering(RenderManager& renderManager) noexcept
 {
-	renderManager.PushRectEntryToRenderQueue(pos, Color(255, 0, 0, 0));
+	renderManager.PushRectEntryToRenderQueue(pos, SDL_Color(255, 0, 0, 0));
 }
 
-void Apple::SetRandomPosition(const Vector2& window_bounds) noexcept {
+void Apple::SetRandomPosition(const SDL_Point& window_bounds) noexcept {
 
-	pos = Vector2((rand() % window_bounds.x / size) * size,
-		          (rand() % window_bounds.y / size) * size);
+	pos = SDL_Point((rand() % window_bounds.x / size) * size,
+		            (rand() % window_bounds.y / size) * size);
 
 }
 
-Vector2 Apple::GetPosition() noexcept {
+SDL_Point Apple::GetPosition() noexcept {
 
 	return pos;
 

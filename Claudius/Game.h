@@ -38,8 +38,8 @@ private:
 	
 	void UpdatePlayerInput(SDL_Keycode key) noexcept;
 	void InputEventCheck() noexcept;
-	void QueueGameObjectsForRendering(RenderManager& render_manager);
-
+	void QueueGameObjectsForRendering(RenderManager& render_manager) noexcept;
+	 
 	bool PlayerIsSelfColliding() noexcept;
 	bool PlayerIsOutOfBounds() noexcept;
 	bool PlayerIsEatingApple() noexcept;

@@ -1,18 +1,17 @@
 #pragma once
 #include "Window.h"
-#include "Color.h"
-#include "Vector2.h"
+
 class Renderer {
 public:
 	Renderer(const Window& window);
 
-	void SetRenderColor(const Color& color) noexcept;
+	void SetRenderColor(const SDL_Color& color) noexcept;
 	void ClearRenderer() noexcept;
 	void FillRect(const SDL_Rect& rect) noexcept;
 
 	void Present() noexcept;
 	
-	SDL_Rect CreateRect(const Vector2& pos, const Vector2& size) noexcept;
+	SDL_Rect CreateRect(const SDL_Point& pos, const SDL_Point& size) noexcept;
 
 	SDL_Renderer* GetPointer() noexcept;
 

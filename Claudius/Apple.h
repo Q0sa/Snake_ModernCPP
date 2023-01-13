@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Color.h"
+
 #include "RenderManager.h"
 
 
@@ -12,14 +12,14 @@ public:
 	Apple() noexcept;
 
 	void QueueAppleForRendering(RenderManager& renderManager) noexcept;
-	void SetRandomPosition(const Vector2& window_bounds) noexcept;
+	void SetRandomPosition(const SDL_Point& window_bounds) noexcept;
 
-	Vector2 GetPosition() noexcept;
+	SDL_Point GetPosition() noexcept;
 
 private:
 
-	Color color = {};
-	Vector2 pos = {};
+	SDL_Color color = {};
+	SDL_Point pos = {};
 
 	int size = {};
 
