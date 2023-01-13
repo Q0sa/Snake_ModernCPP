@@ -25,7 +25,7 @@ void Apple::SetRandomPosition(const Vector2& window_bounds) noexcept {
 
 }
 
-Vector2 Apple::GetPosition() {
+Vector2 Apple::GetPosition() noexcept {
 
 	return pos;
 

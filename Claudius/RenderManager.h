@@ -25,7 +25,7 @@ public:
 	//RenderManager(const Renderer& renderer);
 
 
-	void PushRectEntryToRenderQueue( const Vector2& pos, const Color& color );
+	void PushRectEntryToRenderQueue( const Vector2& pos, const Color& color ) noexcept;
 	
 	void RenderCurrentFrame(Renderer& renderer);
 	void ClearRenderQueue() noexcept;
@@ -33,7 +33,7 @@ public:
 
 
 private:
-	void RenderQueueToRects(Renderer& renderer);
+	void RenderQueueToRects(Renderer& renderer) noexcept;
 
 	
 };

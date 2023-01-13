@@ -1,17 +1,16 @@
 #include "Player.h"
-#include <cmath>
 #include "RenderManager.h"
-#include <iostream>
 
 
-Player::Player()  :
+Player::Player() noexcept :
 	size(10),
-	movement_speed(10.0f),
-	starting_x(300.0f),
-	starting_y(300.0f)
+	movement_speed(10),
+	starting_x(300),
+	starting_y(300)
 {
 	
 	AddSnakePart(SNAKE_PART_TYPE::HEAD);
+	AddSnakePart(SNAKE_PART_TYPE::NEW_PART);
 
 }
 
@@ -27,18 +26,20 @@ void Player::QueueSnakeForRendering(RenderManager& renderManager)
 	
 }
 
-void Player::HandleInput(SDL_Keycode key) {
+void Player::HandleInput(SDL_Keycode key) noexcept {
 
-	if (key != SDLK_UNKNOWN)
-		last_valid_input = key;
+	if (isInputNotOppositeOfMoveDirection(key)) {
+
+		active_valid_input = key;
+
+	}
 
 }
 
-void Player::Movement() noexcept
+void Player::Movement()
 {
 
-	if (isInputNotOppositeOfMoveDirection(last_valid_input)) {
-		switch (last_valid_input)
+		switch (active_valid_input)
 		{
 		case SDLK_UP:
 
@@ -67,7 +68,6 @@ void Player::Movement() noexcept
 		default:
 			break;
 		}
-	}
 
 	MoveSnakeBody();
 }
@@ -79,19 +79,19 @@ bool Player::isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_inpu
 	{
 	case SDLK_UP:
 
-		return last_valid_input != SDLK_DOWN;
+		return active_valid_input != SDLK_DOWN;
 
 	case SDLK_DOWN:
 
-		return last_valid_input != SDLK_UP;
+		return active_valid_input != SDLK_UP;
 
 	case SDLK_RIGHT:
 
-		return last_valid_input != SDLK_LEFT;
+		return active_valid_input != SDLK_LEFT;
 
 	case SDLK_LEFT:
 
-		return last_valid_input != SDLK_RIGHT;
+		return active_valid_input != SDLK_RIGHT;
 
 	
 	default:
@@ -99,7 +99,6 @@ bool Player::isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_inpu
 	}
 
 }
-
 
 void Player::MoveHeadPos(const Vector2& move_amount) {
 
@@ -130,7 +129,7 @@ void Player::AddSnakePart(const SNAKE_PART_TYPE& part_type) {
 	case SNAKE_PART_TYPE::NEW_PART:
 		
 		newPart.color = Color(255, 0, 0, 0);
-		newPart.pos = GetHead().pos;
+		newPart.pos = snake_body.back().pos; //breaks law of demeter
 		
 		break;
 
@@ -145,36 +144,41 @@ void Player::AddSnakePart(const SNAKE_PART_TYPE& part_type) {
 
 void Player::ResetPlayer()
 {
-	last_valid_input = SDLK_UNKNOWN;
+	active_valid_input = {};
 
 	snake_body.clear();
+
 	AddSnakePart(SNAKE_PART_TYPE::HEAD);
+	AddSnakePart(SNAKE_PART_TYPE::NEW_PART);
 
 }
 
 
-int Player::GetSnakeSize() noexcept {
-
-	return snake_body.size();
-
-}
-
-Player::PlayerPart &Player::GetHead()   {
+Player::PlayerPart &Player::GetHead() noexcept  {
 
 	return snake_body.front();
 
 }
 
-Vector2 &Player::GetSnakeHeadPosition() {
+Vector2 &Player::GetSnakeHeadPosition() noexcept {
 
 	return GetHead().pos;
 
 }
 
 
-Vector2 Player::GetSnakePartPostion(const int& index) {
+std::vector<Vector2> Player::GetSnakeBodyPositions() noexcept {
 
-	return snake_body.at(index).pos;
+	std::vector<Vector2> part_positions = {};
+
+	for (const PlayerPart part : snake_body | std::views::drop(1))
+	{
+
+		part_positions.push_back(part.pos);
+
+	}
+
+	return part_positions;
 
 }
 

@@ -6,15 +6,15 @@ class Renderer {
 public:
 	Renderer(const Window& window);
 
+	void SetRenderColor(const Color& color) noexcept;
+	void ClearRenderer() noexcept;
+	void FillRect(const SDL_Rect& rect) noexcept;
 
-	void SetRenderColor(const Color& color);
-	void ClearRenderer();
-	SDL_Rect CreateRect(const Vector2& pos, const Vector2& size);
-	void FillRect(const SDL_Rect& rect);
+	void Present() noexcept;
+	
+	SDL_Rect CreateRect(const Vector2& pos, const Vector2& size) noexcept;
 
-	void Present();
-
-	SDL_Renderer* GetPointer();
+	SDL_Renderer* GetPointer() noexcept;
 
 
 

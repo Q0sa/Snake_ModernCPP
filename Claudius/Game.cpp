@@ -30,12 +30,11 @@ void Game::Enter() {
 	while (running)
 	{
 
-
 		InputEventCheck();
 
 		player.Movement();
 
-		//CheckCollisions();
+		CheckCollisions();
 		QueueGameObjectsForRendering(render_manager);
 
 		render_manager.RenderCurrentFrame(renderer);
@@ -52,32 +51,54 @@ void Game::Enter() {
 void Game::CheckCollisions()
 {
 
-	
 
-	for (int i = 0; i < player.GetSnakeSize(); i++)
-	{
-		if (player.GetSnakeHeadPosition() == player.GetSnakePartPostion(i))
-		{
-			player.ResetPlayer();
-		}
-	}
-
-	if (player.GetSnakeHeadPosition().x > window_config.width || player.GetSnakeHeadPosition().x < 0)
-	{
+	if (PlayerIsSelfColliding() || PlayerIsOutOfBounds())
 		player.ResetPlayer();
-	}
 
-	if (player.GetSnakeHeadPosition().y > window_config.height || player.GetSnakeHeadPosition().y < 0)
-	{
-		player.ResetPlayer();
-	}
 
-	if (player.GetSnakeHeadPosition() == apple.GetPosition())
+	if (PlayerIsEatingApple())
 	{
 		player.AddSnakePart(Player::SNAKE_PART_TYPE::NEW_PART);
-		apple.SetRandomPosition();
+		apple.SetRandomPosition(Vector2(window_config.width, window_config.height));
 	}
 
+
+}
+
+bool Game::PlayerIsSelfColliding() noexcept {
+
+	for (const Vector2 pos : player.GetSnakeBodyPositions() | std::views::drop(2))
+	{
+
+		if (pos == player.GetSnakeHeadPosition()) 
+			return true;
+
+	}
+
+	return false;
+
+}
+
+bool Game::PlayerIsOutOfBounds() noexcept {
+
+	const Vector2 player_head_pos = player.GetSnakeHeadPosition();
+
+	if (player_head_pos.x > window_config.width || player_head_pos.x < 0 ||
+		player_head_pos.y > window_config.height || player_head_pos.y < 0)
+	{
+		return true;
+	}
+
+	return false;
+
+}
+
+bool Game::PlayerIsEatingApple() noexcept {
+
+	if (player.GetSnakeHeadPosition() == apple.GetPosition())
+		return true;
+	
+	return false;
 
 }
 
@@ -87,7 +108,7 @@ void Game::QueueGameObjectsForRendering( RenderManager& render_manager)
 	apple.QueueAppleForRendering(render_manager);
 }
 
-void Game::InputEventCheck() {
+void Game::InputEventCheck() noexcept {
 
 	SDL_Event event = {};
 	while (SDL_PollEvent(&event))
@@ -95,7 +116,7 @@ void Game::InputEventCheck() {
 		switch (event.type)
 		{
 
-		case SDL_KEYDOWN: UpdatePlayerInput(event.key.keysym.sym);
+		case SDL_KEYDOWN: player.HandleInput(event.key.keysym.sym);
 			break;
 
 		case SDL_QUIT:
@@ -108,11 +129,6 @@ void Game::InputEventCheck() {
 		}
 	}
 
-}
-
-void Game::UpdatePlayerInput(SDL_Keycode key) noexcept
-{
-	player.HandleInput(key);
 }
 
 

@@ -11,10 +11,10 @@ public:
 
 	Apple() noexcept;
 
-	void QueueAppleForRendering(RenderManager& renderManager);
-	void SetRandomPosition(const Vector2& window_bounds);
+	void QueueAppleForRendering(RenderManager& renderManager) ;
+	void SetRandomPosition(const Vector2& window_bounds) noexcept;
 
-	Vector2 GetPosition();
+	Vector2 GetPosition() noexcept;
 
 private:
 

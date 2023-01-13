@@ -4,7 +4,10 @@
 #include "SDL_keycode.h"
 #include "RenderManager.h"
 #include <vector>
+#include <ranges>
 #include <algorithm>
+#include <cmath>
+
 
 
 class Player
@@ -12,32 +15,8 @@ class Player
 
 public:
 	
-	Player() ;
+	Player() noexcept;
 
-
-	
-	enum class SNAKE_PART_TYPE { HEAD, NEW_PART};
-
-	void AddSnakePart(const SNAKE_PART_TYPE& part_type);
-
-	void Movement() noexcept;
-
-	void HandleInput(SDL_Keycode key);
-	
-	void QueueSnakeForRendering(RenderManager& renderManager);		
-	//void Update();
-	void ResetPlayer();
-
-	
-	int GetSnakeSize() noexcept;
-
-	Vector2 &GetSnakeHeadPosition();
-	Vector2 GetSnakePartPostion(const int& index);
-
-
-
-private:
-	
 	struct PlayerPart
 	{
 		//Transform trans;
@@ -46,12 +25,35 @@ private:
 		//Rectangle rect;
 	};
 	
-	SDL_Keycode last_valid_input = {};
+	enum class SNAKE_PART_TYPE { HEAD, NEW_PART};
+
+	void AddSnakePart(const SNAKE_PART_TYPE& part_type);
+
+	void Movement();
+
+	void HandleInput(SDL_Keycode key) noexcept;
+	
+	void QueueSnakeForRendering(RenderManager& renderManager);		
+	//void Update();
+	void ResetPlayer();
+
+	
+	int GetSnakeSize() noexcept;
+
+	Vector2 &GetSnakeHeadPosition() noexcept;
+	std::vector<Vector2> GetSnakeBodyPositions() noexcept;
+
+
+
+private:
+
+
+	SDL_Keycode active_valid_input = {};
 
 	int size = {};
-	float movement_speed = {};
-	float starting_x = {};
-	float starting_y = {};
+	int movement_speed = {};
+	int starting_x = {};
+	int starting_y = {};
 
 	std::vector <PlayerPart> snake_body = {};
 
@@ -59,7 +61,7 @@ private:
 
 	void MoveHeadPos(const Vector2& pos);
 
-	PlayerPart &GetHead();
+	PlayerPart &GetHead() noexcept;
 	void MoveSnakeBody();
 
 

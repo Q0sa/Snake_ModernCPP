@@ -18,19 +18,19 @@ Renderer::Renderer(const Window& window) {
 
 }
 
-SDL_Renderer* Renderer::GetPointer() {
+SDL_Renderer* Renderer::GetPointer() noexcept {
 
 	return renderer.get();
 
 }
 
-void Renderer::SetRenderColor(const Color& color) {
+void Renderer::SetRenderColor(const Color& color) noexcept {
 
 	SDL_SetRenderDrawColor(renderer.get(), color.r, color.g, color.b, color.a);
 
 }
 
-SDL_Rect Renderer::CreateRect(const Vector2& pos, const Vector2& size) {
+SDL_Rect Renderer::CreateRect(const Vector2& pos, const Vector2& size) noexcept {
 
 	return SDL_Rect{ pos.x,
 				     pos.y,
@@ -39,19 +39,19 @@ SDL_Rect Renderer::CreateRect(const Vector2& pos, const Vector2& size) {
 
 }
 
-void Renderer::FillRect(const SDL_Rect& rect) {
+void Renderer::FillRect(const SDL_Rect& rect) noexcept {
 
 	SDL_RenderFillRect(renderer.get(), &rect);
 
 }
 
-void Renderer::Present(){
+void Renderer::Present() noexcept {
 
 	SDL_RenderPresent(renderer.get());
 
 }
 
-void Renderer::ClearRenderer() {
+void Renderer::ClearRenderer() noexcept {
 
 	SDL_RenderClear(renderer.get());
 
