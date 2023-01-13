@@ -21,7 +21,6 @@ public:
 	{
 		//Transform trans;
 		Vector2 pos;
-		Color color;
 		//Rectangle rect;
 	};
 	
@@ -33,7 +32,7 @@ public:
 
 	void HandleInput(SDL_Keycode key) noexcept;
 	
-	void QueueSnakeForRendering(RenderManager& renderManager);		
+	void QueueSnakeForRendering(RenderManager& renderManager) noexcept;
 	//void Update();
 	void ResetPlayer();
 
@@ -42,6 +41,7 @@ public:
 
 	Vector2 &GetSnakeHeadPosition() noexcept;
 	std::vector<Vector2> GetSnakeBodyPositions() noexcept;
+	Vector2& GetSnakeTailPosition() noexcept;
 
 
 
@@ -59,10 +59,13 @@ private:
 
 	bool isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_input) noexcept;
 
-	void MoveHeadPos(const Vector2& pos);
+	void MoveHeadPos(const Vector2& pos) noexcept;
 
 	PlayerPart &GetHead() noexcept;
+	PlayerPart& GetTail() noexcept;
+
 	void MoveSnakeBody();
+
 
 
 };

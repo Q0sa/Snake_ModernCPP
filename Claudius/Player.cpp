@@ -15,12 +15,12 @@ Player::Player() noexcept :
 }
 
 
-void Player::QueueSnakeForRendering(RenderManager& renderManager)
+void Player::QueueSnakeForRendering(RenderManager& renderManager) noexcept
 {
 
 	for (auto& part : snake_body) {
 
-		renderManager.PushRectEntryToRenderQueue(part.pos, part.color);
+		renderManager.PushRectEntryToRenderQueue(part.pos, Color(0, 255, 0, 0));
 
 	}
 	
@@ -100,7 +100,7 @@ bool Player::isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_inpu
 
 }
 
-void Player::MoveHeadPos(const Vector2& move_amount) {
+void Player::MoveHeadPos(const Vector2& move_amount) noexcept{
 
 	GetHead().pos = GetHead().pos + move_amount;
 
@@ -117,19 +117,18 @@ void Player::AddSnakePart(const SNAKE_PART_TYPE& part_type) {
 
 	PlayerPart newPart = {};
 
+	
 	switch (part_type)
 	{
 	case SNAKE_PART_TYPE::HEAD:
 
-		newPart.color = Color(0, 255, 0, 0);
 		newPart.pos = Vector2(starting_x, starting_y);
 
 		break;
 
 	case SNAKE_PART_TYPE::NEW_PART:
 		
-		newPart.color = Color(255, 0, 0, 0);
-		newPart.pos = snake_body.back().pos; //breaks law of demeter
+		newPart.pos = GetSnakeTailPosition();
 		
 		break;
 
@@ -160,9 +159,21 @@ Player::PlayerPart &Player::GetHead() noexcept  {
 
 }
 
+Player::PlayerPart& Player::GetTail() noexcept {
+
+	return snake_body.back();
+
+}
+
 Vector2 &Player::GetSnakeHeadPosition() noexcept {
 
 	return GetHead().pos;
+
+}
+
+Vector2& Player::GetSnakeTailPosition() noexcept {
+
+	return GetTail().pos;
 
 }
 

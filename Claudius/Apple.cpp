@@ -5,7 +5,6 @@
 
 Apple::Apple() noexcept :
 	size(10),
-	color(0, 255, 0, 0),
 	pos(320, 500)
 {
 
@@ -13,9 +12,9 @@ Apple::Apple() noexcept :
 }
 
 
-void Apple::QueueAppleForRendering(RenderManager& renderManager)
+void Apple::QueueAppleForRendering(RenderManager& renderManager) noexcept
 {
-	renderManager.PushRectEntryToRenderQueue(pos, color);
+	renderManager.PushRectEntryToRenderQueue(pos, Color(255, 0, 0, 0));
 }
 
 void Apple::SetRandomPosition(const Vector2& window_bounds) noexcept {

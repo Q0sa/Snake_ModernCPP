@@ -16,7 +16,7 @@ void RenderManager::PushRectEntryToRenderQueue(const Vector2& pos, const Color& 
 
 }
 
-void RenderManager::RenderCurrentFrame( Renderer& renderer) {
+void RenderManager::RenderCurrentFrame( Renderer& renderer) noexcept {
 
 	
 	renderer.SetRenderColor(Color(0, 0, 0, 0));

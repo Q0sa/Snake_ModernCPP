@@ -22,8 +22,8 @@ public:
 private:
 
 	struct WindowConfig {
-		unsigned int width = {};
-		unsigned int height = {};
+	    const unsigned int width = {};
+	    const unsigned int height = {};
 		std::string_view title = {};
 	};
 

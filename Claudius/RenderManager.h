@@ -27,7 +27,7 @@ public:
 
 	void PushRectEntryToRenderQueue( const Vector2& pos, const Color& color ) noexcept;
 	
-	void RenderCurrentFrame(Renderer& renderer);
+	void RenderCurrentFrame(Renderer& renderer ) noexcept;
 	void ClearRenderQueue() noexcept;
 
 
