@@ -29,24 +29,11 @@ void Game::Enter() {
 
 	while (running)
 	{
-		SDL_Event event = {};
-		while (SDL_PollEvent(&event))
-		{
-			switch (event.type)
-			{
-
-			case SDL_KEYDOWN: UpdatePlayerMovement(event.key.keysym.sym);
-				break;
-
-			case SDL_QUIT:
-				SDL_Quit();
-				running = false;
-				break;
 
 
-			default: break;
-			}
-		}
+		InputEventCheck();
+
+		player.Movement();
 
 		//CheckCollisions();
 		QueueGameObjectsForRendering(render_manager);
@@ -65,7 +52,6 @@ void Game::Enter() {
 void Game::CheckCollisions()
 {
 
-	//player.Update();
 	
 
 	for (int i = 0; i < player.GetSnakeSize(); i++)
@@ -101,10 +87,32 @@ void Game::QueueGameObjectsForRendering( RenderManager& render_manager)
 	apple.QueueAppleForRendering(render_manager);
 }
 
+void Game::InputEventCheck() {
 
-void Game::UpdatePlayerMovement(SDL_Keycode key) noexcept
+	SDL_Event event = {};
+	while (SDL_PollEvent(&event))
+	{
+		switch (event.type)
+		{
+
+		case SDL_KEYDOWN: UpdatePlayerInput(event.key.keysym.sym);
+			break;
+
+		case SDL_QUIT:
+			SDL_Quit();
+			running = false;
+			break;
+
+
+		default: break;
+		}
+	}
+
+}
+
+void Game::UpdatePlayerInput(SDL_Keycode key) noexcept
 {
-	player.InputToMovement(key);
+	player.HandleInput(key);
 }
 
 

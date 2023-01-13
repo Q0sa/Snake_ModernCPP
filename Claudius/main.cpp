@@ -1,9 +1,4 @@
-﻿#include "SDL.h"
-#include "RenderManager.h"
-#include "Game.h"
-#include "Transform.h"
-#include <cassert>
-#include <iostream>
+﻿#include "Game.h"
 
 #undef main
 

@@ -20,7 +20,9 @@ public:
 
 	void AddSnakePart(const SNAKE_PART_TYPE& part_type);
 
-	void InputToMovement(SDL_Keycode key) noexcept;
+	void Movement() noexcept;
+
+	void HandleInput(SDL_Keycode key);
 	
 	void QueueSnakeForRendering(RenderManager& renderManager);		
 	//void Update();

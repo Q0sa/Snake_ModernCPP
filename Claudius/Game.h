@@ -18,10 +18,6 @@ public:
 	Game() noexcept;
 
 	void Enter();
-	void CheckCollisions();
-	
-	
-	void UpdatePlayerMovement(SDL_Keycode key) noexcept;
 
 private:
 
@@ -38,5 +34,9 @@ private:
 
 	bool running = {};
 
+	void CheckCollisions();
+	
+	void UpdatePlayerInput(SDL_Keycode key) noexcept;
+	void InputEventCheck();
 	void QueueGameObjectsForRendering(RenderManager& render_manager);
 };

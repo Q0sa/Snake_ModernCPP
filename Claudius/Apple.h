@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Rectangle.h"
 #include "Color.h"
-#include "Transform.h"
 #include "RenderManager.h"
+
+
 
 class Apple
 {
@@ -12,16 +12,15 @@ public:
 	Apple() noexcept;
 
 	void QueueAppleForRendering(RenderManager& renderManager);
-	void SetRandomPosition();
+	void SetRandomPosition(const Vector2& window_bounds);
 
 	Vector2 GetPosition();
 
 private:
 
-	Color color;
-	Vector2 pos;
+	Color color = {};
+	Vector2 pos = {};
 
 	int size = {};
 
-	Vector2 GenerateRandomPosition();
 };

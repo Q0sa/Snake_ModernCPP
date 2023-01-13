@@ -2,14 +2,13 @@
 
 #include <iostream>
 #include "Apple.h"
-#include "RenderManager.h"
 
 Apple::Apple() noexcept :
 	size(10),
-	color(0, 255, 0, 0)
+	color(0, 255, 0, 0),
+	pos(320, 500)
 {
 
-	SetRandomPosition();
 
 }
 
@@ -19,15 +18,10 @@ void Apple::QueueAppleForRendering(RenderManager& renderManager)
 	renderManager.PushRectEntryToRenderQueue(pos, color);
 }
 
-void Apple::SetRandomPosition() {
+void Apple::SetRandomPosition(const Vector2& window_bounds) noexcept {
 
-	pos = GenerateRandomPosition();
-
-}
-
-Vector2 Apple::GenerateRandomPosition() {
-
-	return Vector2((rand() % 125) * 10, (rand() % 70) * 10);
+	pos = Vector2((rand() % window_bounds.x / size) * size,
+		          (rand() % window_bounds.y / size) * size);
 
 }
 

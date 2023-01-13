@@ -10,12 +10,8 @@ Player::Player()  :
 	starting_x(300.0f),
 	starting_y(300.0f)
 {
-	//rect.SetBounds(0, 0, size, size),
-	//trans.SetPosition(starting_x, starting_y);
-
-
+	
 	AddSnakePart(SNAKE_PART_TYPE::HEAD);
-
 
 }
 
@@ -31,68 +27,22 @@ void Player::QueueSnakeForRendering(RenderManager& renderManager)
 	
 }
 
-//void Player::Update()
-//{
-//	
-//	Movement();
-//
-//}
-//
-//void Player::Movement() {
-//
-//	switch (move_direction)
-//	{
-//
-//	case Player::MOVE_DIRECTION::NONE:
-//		break;
-//
-//	case Player::MOVE_DIRECTION::UP:
-//		trans.ChangePosition(0, -movement_speed);
-//		MoveSnakeBody();
-//
-//
-//		break;
-//
-//	case Player::MOVE_DIRECTION::DOWN:
-//		trans.ChangePosition(0, movement_speed);
-//		MoveSnakeBody();
-//
-//
-//		break;
-//
-//	case Player::MOVE_DIRECTION::LEFT:
-//		trans.ChangePosition(-movement_speed, 0);
-//		MoveSnakeBody();
-//
-//
-//		break;
-//
-//	case Player::MOVE_DIRECTION::RIGHT:
-//
-//		trans.ChangePosition(movement_speed, 0);
-//		MoveSnakeBody();
-//
-//		break;
-//
-//	default:
-//		break;
-//	}
-//
-//}
-
-void Player::InputToMovement(SDL_Keycode key) noexcept
-{
+void Player::HandleInput(SDL_Keycode key) {
 
 	if (key != SDLK_UNKNOWN)
 		last_valid_input = key;
 
-	if (isInputNotOppositeOfMoveDirection(key)) {
-		switch (key)
+}
+
+void Player::Movement() noexcept
+{
+
+	if (isInputNotOppositeOfMoveDirection(last_valid_input)) {
+		switch (last_valid_input)
 		{
 		case SDLK_UP:
 
 			MoveHeadPos(Vector2(0, -movement_speed));
-
 
 			break;
 
@@ -118,8 +68,8 @@ void Player::InputToMovement(SDL_Keycode key) noexcept
 			break;
 		}
 	}
+
 	MoveSnakeBody();
-	std::cout << GetSnakeHeadPosition().x << " " << GetSnakeHeadPosition().y << "\n";
 }
 
 bool Player::isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_input) noexcept {
@@ -150,9 +100,10 @@ bool Player::isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_inpu
 
 }
 
+
 void Player::MoveHeadPos(const Vector2& move_amount) {
 
-	snake_body.front().pos = GetHead().pos + move_amount;
+	GetHead().pos = GetHead().pos + move_amount;
 
 }
 
@@ -167,7 +118,6 @@ void Player::AddSnakePart(const SNAKE_PART_TYPE& part_type) {
 
 	PlayerPart newPart = {};
 
-
 	switch (part_type)
 	{
 	case SNAKE_PART_TYPE::HEAD:
@@ -179,10 +129,8 @@ void Player::AddSnakePart(const SNAKE_PART_TYPE& part_type) {
 
 	case SNAKE_PART_TYPE::NEW_PART:
 		
-		
 		newPart.color = Color(255, 0, 0, 0);
 		newPart.pos = GetHead().pos;
-
 		
 		break;
 
@@ -211,7 +159,7 @@ int Player::GetSnakeSize() noexcept {
 
 }
 
-Player::PlayerPart &Player::GetHead() {
+Player::PlayerPart &Player::GetHead()   {
 
 	return snake_body.front();
 
@@ -230,8 +178,3 @@ Vector2 Player::GetSnakePartPostion(const int& index) {
 
 }
 
-//Vector2 Player::GetNewBodyPosition(const Vector2& last_part_pos, const Vector2& before_last_part_pos) {
-//
-//	return last_part_pos + (last_part_pos - before_last_part_pos);
-//
-//}
