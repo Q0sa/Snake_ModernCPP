@@ -5,6 +5,7 @@
 #include "SDL_keycode.h"
 #include "RenderManager.h"
 #include <vector>
+#include <algorithm>
 
 
 class Player
@@ -23,13 +24,13 @@ public:
 	void InputToMovement(SDL_Keycode key) noexcept;
 	
 	void QueueSnakeForRendering(RenderManager& renderManager);		
-	void Update();
+	//void Update();
 	void ResetPlayer();
 
 	
 	int GetSnakeSize() noexcept;
 
-	Vector2 GetSnakeHeadPosition();
+	Vector2 &GetSnakeHeadPosition();
 	Vector2 GetSnakePartPostion(const int& index);
 
 
@@ -72,7 +73,7 @@ private:
 	bool isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_input) noexcept;
 	Vector2 GetNewBodyPosition(const Vector2& last_part_pos, const Vector2& before_last_part_pos );
 
-	PlayerPart GetHead();
+	PlayerPart &GetHead();
 	void MoveSnakeBody();
 
 

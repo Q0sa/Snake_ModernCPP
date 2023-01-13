@@ -22,7 +22,7 @@ public:
 	
 	
 	void ClearRenderManager() noexcept;
-	void PassInputToPlayer(SDL_Keycode key) noexcept;
+	void UpdatePlayerMovement(SDL_Keycode key) noexcept;
 
 
 

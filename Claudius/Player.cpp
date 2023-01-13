@@ -8,10 +8,7 @@ Player::Player()  :
 	size(10),
 	movement_speed(10.0f),
 	starting_x(300.0f),
-	starting_y(300.0f),
-	//color(0, 255, 0, 0),
-	//pos(starting_x, starting_y)
-
+	starting_y(300.0f)
 {
 	//rect.SetBounds(0, 0, size, size),
 	//trans.SetPosition(starting_x, starting_y);
@@ -35,54 +32,54 @@ void Player::QueueSnakeForRendering(RenderManager& renderManager)
 	
 }
 
-void Player::Update()
-{
-	
-	Movement();
-
-}
-
-void Player::Movement() {
-
-	switch (move_direction)
-	{
-
-	case Player::MOVE_DIRECTION::NONE:
-		break;
-
-	case Player::MOVE_DIRECTION::UP:
-		trans.ChangePosition(0, -movement_speed);
-		MoveSnakeBody();
-
-
-		break;
-
-	case Player::MOVE_DIRECTION::DOWN:
-		trans.ChangePosition(0, movement_speed);
-		MoveSnakeBody();
-
-
-		break;
-
-	case Player::MOVE_DIRECTION::LEFT:
-		trans.ChangePosition(-movement_speed, 0);
-		MoveSnakeBody();
-
-
-		break;
-
-	case Player::MOVE_DIRECTION::RIGHT:
-
-		trans.ChangePosition(movement_speed, 0);
-		MoveSnakeBody();
-
-		break;
-
-	default:
-		break;
-	}
-
-}
+//void Player::Update()
+//{
+//	
+//	Movement();
+//
+//}
+//
+//void Player::Movement() {
+//
+//	switch (move_direction)
+//	{
+//
+//	case Player::MOVE_DIRECTION::NONE:
+//		break;
+//
+//	case Player::MOVE_DIRECTION::UP:
+//		trans.ChangePosition(0, -movement_speed);
+//		MoveSnakeBody();
+//
+//
+//		break;
+//
+//	case Player::MOVE_DIRECTION::DOWN:
+//		trans.ChangePosition(0, movement_speed);
+//		MoveSnakeBody();
+//
+//
+//		break;
+//
+//	case Player::MOVE_DIRECTION::LEFT:
+//		trans.ChangePosition(-movement_speed, 0);
+//		MoveSnakeBody();
+//
+//
+//		break;
+//
+//	case Player::MOVE_DIRECTION::RIGHT:
+//
+//		trans.ChangePosition(movement_speed, 0);
+//		MoveSnakeBody();
+//
+//		break;
+//
+//	default:
+//		break;
+//	}
+//
+//}
 
 void Player::InputToMovement(SDL_Keycode key) noexcept
 {
@@ -91,35 +88,38 @@ void Player::InputToMovement(SDL_Keycode key) noexcept
 	{
 	case SDLK_UP:
 		
-		if (isInputNotOppositeOfMoveDirection(key))
-			pos.y -= movement_speed;
+		if (isInputNotOppositeOfMoveDirection(key)) //potentially move this to encapsulate the entire switch statement
+			GetSnakeHeadPosition().y -= movement_speed;
 		
 		break;
 
 	case SDLK_DOWN:
 		
 		if(isInputNotOppositeOfMoveDirection(key))
-			pos.y += movement_speed;
+			GetSnakeHeadPosition().y += movement_speed;
 
 		break;
 
 	case SDLK_RIGHT: 
 		
 		if (isInputNotOppositeOfMoveDirection(key))
-			pos.x += movement_speed;
+			GetSnakeHeadPosition().x += movement_speed;
 
 		break;
 
 	case SDLK_LEFT: 
 		
 		if (isInputNotOppositeOfMoveDirection(key))
-			pos.x -= movement_speed;
+			GetSnakeHeadPosition().x -= movement_speed;
 
 		break;
 
 	default:
 		break;
 	}
+
+	MoveSnakeBody();
+
 }
 
 bool Player::isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_input) noexcept {
@@ -152,19 +152,20 @@ bool Player::isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_inpu
 
 void Player::MoveSnakeBody() {
 
-	PlayerPart tempPart1 = {};
-	PlayerPart tempPart2 = snake_body.front();
+	//PlayerPart tempPart1 = {};
+	//PlayerPart tempPart2 = snake_body.front();
 
-	for (int i = 0; i < snake_body.size(); i++)
-	{
+	//for (int i = 0; i < snake_body.size(); i++)
+	//{
 
-		 tempPart1 = tempPart2;
-		 tempPart2 = snake_body.at(i);
-		
-		snake_body.at(i) = tempPart1;
+	//	 tempPart1 = tempPart2;
+	//	 tempPart2 = snake_body.at(i);
+	//	
+	//	snake_body.at(i) = tempPart1;
 
-	}
-	
+	//}
+
+	std::shift_right(snake_body.begin(), snake_body.end(), 1);
 
 }
 
@@ -216,13 +217,13 @@ int Player::GetSnakeSize() noexcept {
 
 }
 
-Player::PlayerPart Player::GetHead() {
+Player::PlayerPart &Player::GetHead() {
 
 	return snake_body.front();
 
 }
 
-Vector2 Player::GetSnakeHeadPosition() {
+Vector2 &Player::GetSnakeHeadPosition() {
 
 	return GetHead().pos;
 
@@ -235,8 +236,8 @@ Vector2 Player::GetSnakePartPostion(const int& index) {
 
 }
 
-Vector2 Player::GetNewBodyPosition(const Vector2& last_part_pos, const Vector2& before_last_part_pos) {
-
-	return last_part_pos + (last_part_pos - before_last_part_pos);
-
-}
+//Vector2 Player::GetNewBodyPosition(const Vector2& last_part_pos, const Vector2& before_last_part_pos) {
+//
+//	return last_part_pos + (last_part_pos - before_last_part_pos);
+//
+//}

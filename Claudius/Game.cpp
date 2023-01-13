@@ -35,7 +35,7 @@ void Game::Enter() {
 			switch (event.type)
 			{
 
-			case SDL_KEYDOWN: PassInputToPlayer(event.key.keysym.sym);
+			case SDL_KEYDOWN: UpdatePlayerMovement(event.key.keysym.sym);
 				break;
 
 			case SDL_QUIT:
@@ -77,7 +77,7 @@ void Game::Enter() {
 void Game::Update()
 {
 
-	player.Update();
+	//player.Update();
 	
 
 	for (int i = 0; i < player.GetSnakeSize(); i++)
@@ -126,7 +126,7 @@ std::vector<RenderManager::RenderEntry> Game::GetRenderQueue()
 }
 
 
-void Game::PassInputToPlayer(SDL_Keycode key) noexcept
+void Game::UpdatePlayerMovement(SDL_Keycode key) noexcept
 {
 	player.InputToMovement(key);
 }
