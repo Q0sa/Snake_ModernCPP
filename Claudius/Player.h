@@ -30,12 +30,12 @@ public:
 
 	void HandleInput(SDL_Keycode key) noexcept;
 	
-	void QueueSnakeForRendering(RenderManager& renderManager) noexcept;
+	void QueueSnakeForRendering(RenderManager& renderManager) const noexcept;
 	void ResetPlayer() noexcept;
 
 
 	SDL_Point &GetSnakeHeadPosition() noexcept;
-	std::vector<SDL_Point> GetSnakeBodyPositions() noexcept;
+	std::vector<SDL_Point> GetSnakeBodyPositions() const noexcept;
 	SDL_Point& GetSnakeTailPosition() noexcept;
 
 
@@ -52,7 +52,7 @@ private:
 
 	std::vector <PlayerPart> snake_body = {};
 
-	bool isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_input) noexcept;
+	bool isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_input) const noexcept;
 
 	void MoveHeadPos(const SDL_Point& pos) noexcept;
 

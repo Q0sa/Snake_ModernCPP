@@ -14,7 +14,7 @@ public:
 	void QueueAppleForRendering(RenderManager& renderManager) noexcept;
 	void SetRandomPosition(const SDL_Point& window_bounds) noexcept;
 
-	SDL_Point GetPosition() noexcept;
+	SDL_Point GetPosition() const noexcept;
 
 private:
 

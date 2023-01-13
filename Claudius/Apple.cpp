@@ -24,7 +24,7 @@ void Apple::SetRandomPosition(const SDL_Point& window_bounds) noexcept {
 
 }
 
-SDL_Point Apple::GetPosition() noexcept {
+SDL_Point Apple::GetPosition() const noexcept {
 
 	return pos;
 

@@ -15,7 +15,7 @@ Player::Player() noexcept :
 }
 
 
-void Player::QueueSnakeForRendering(RenderManager& renderManager) noexcept
+void Player::QueueSnakeForRendering(RenderManager& renderManager) const noexcept
 {
 
 	for (auto& part : snake_body) {
@@ -36,7 +36,7 @@ void Player::HandleInput(SDL_Keycode key) noexcept {
 
 }
 
-void Player::Movement()
+void Player::Movement() 
 {
 
 		switch (active_valid_input)
@@ -72,7 +72,7 @@ void Player::Movement()
 	MoveSnakeBody();
 }
 
-bool Player::isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_input) noexcept {
+bool Player::isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_input) const noexcept {
 
 
 	switch (direction_input)
@@ -180,7 +180,7 @@ SDL_Point& Player::GetSnakeTailPosition() noexcept {
 }
 
 
-std::vector<SDL_Point> Player::GetSnakeBodyPositions() noexcept {
+std::vector<SDL_Point> Player::GetSnakeBodyPositions() const noexcept {
 
 	std::vector<SDL_Point> part_positions = {};
 

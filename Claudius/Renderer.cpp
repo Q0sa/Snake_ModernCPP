@@ -2,7 +2,6 @@
 
 Renderer::Renderer(const Window& window) {
 
-
 	SDL_Renderer* temp = SDL_CreateRenderer(window.GetPointer(), -1, SDL_RendererFlags::SDL_RENDERER_ACCELERATED);
 	if (temp == nullptr)
 	{

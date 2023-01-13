@@ -1,8 +1,6 @@
-// 2019-12-05 Teemu Laiho
 
 #include "Game.h"
 #include "RenderManager.h"
-#include <iostream>
 
 Game::Game() noexcept :
 	window_config({ 1250, 700, "Snake"}),
@@ -65,10 +63,12 @@ void Game::CheckCollisions() noexcept
 
 bool Game::PlayerIsSelfColliding() noexcept {
 
+	const SDL_Point player_head_pos = player.GetSnakeHeadPosition();
+	
 	for (const SDL_Point pos : player.GetSnakeBodyPositions() | std::views::drop(2))
 	{
 
-		if (pos.x == player.GetSnakeHeadPosition().x && pos.y == player.GetSnakeHeadPosition().y)
+		if (pos.x == player_head_pos.x && pos.y == player_head_pos.y)
 			return true;
 		
 	}
