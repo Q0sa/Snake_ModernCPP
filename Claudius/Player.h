@@ -1,7 +1,6 @@
 #pragma once		
-#include "Transform.h"
 #include "Color.h"
-#include "Rectangle.h"
+#include "Vector2.h"
 #include "SDL_keycode.h"
 #include "RenderManager.h"
 #include <vector>
@@ -44,22 +43,7 @@ private:
 		Color color;
 		//Rectangle rect;
 	};
-	/*Vector2 pos;
-	Color color;*/
-	//Rectangle rect;
-
-	//enum class MOVE_DIRECTION
-	//{
-
-	//	NONE,
-	//	UP,
-	//	DOWN,
-	//	LEFT,
-	//	RIGHT
-
-	//};
-
-	//MOVE_DIRECTION move_direction = {};
+	
 	SDL_Keycode last_valid_input = {};
 
 	int size = {};
@@ -69,9 +53,9 @@ private:
 
 	std::vector <PlayerPart> snake_body = {};
 
-	void Movement();
 	bool isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_input) noexcept;
-	Vector2 GetNewBodyPosition(const Vector2& last_part_pos, const Vector2& before_last_part_pos );
+
+	void MoveHeadPos(const Vector2& pos);
 
 	PlayerPart &GetHead();
 	void MoveSnakeBody();

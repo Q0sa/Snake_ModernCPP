@@ -23,11 +23,10 @@ Player::Player()  :
 void Player::QueueSnakeForRendering(RenderManager& renderManager)
 {
 
-	renderManager.PushRectEntryToRenderQueue(rect, color, trans);
-	
-	for (int i = 0; i < snake_body.size(); i++)
-	{
-		renderManager.PushRectEntryToRenderQueue(snake_body.at(i).rect, snake_body.at(i).color, snake_body.at(i).trans);
+	for (auto& part : snake_body) {
+
+		renderManager.PushRectEntryToRenderQueue(part.pos, part.color);
+
 	}
 	
 }
@@ -84,42 +83,43 @@ void Player::QueueSnakeForRendering(RenderManager& renderManager)
 void Player::InputToMovement(SDL_Keycode key) noexcept
 {
 
-	switch (key)
-	{
-	case SDLK_UP:
-		
-		if (isInputNotOppositeOfMoveDirection(key)) //potentially move this to encapsulate the entire switch statement
-			GetSnakeHeadPosition().y -= movement_speed;
-		
-		break;
+	if (key != SDLK_UNKNOWN)
+		last_valid_input = key;
 
-	case SDLK_DOWN:
-		
-		if(isInputNotOppositeOfMoveDirection(key))
-			GetSnakeHeadPosition().y += movement_speed;
+	if (isInputNotOppositeOfMoveDirection(key)) {
+		switch (key)
+		{
+		case SDLK_UP:
 
-		break;
+			MoveHeadPos(Vector2(0, -movement_speed));
 
-	case SDLK_RIGHT: 
-		
-		if (isInputNotOppositeOfMoveDirection(key))
-			GetSnakeHeadPosition().x += movement_speed;
 
-		break;
+			break;
 
-	case SDLK_LEFT: 
-		
-		if (isInputNotOppositeOfMoveDirection(key))
-			GetSnakeHeadPosition().x -= movement_speed;
+		case SDLK_DOWN:
 
-		break;
+			MoveHeadPos(Vector2(0, movement_speed));
 
-	default:
-		break;
+			break;
+
+		case SDLK_RIGHT:
+
+			MoveHeadPos(Vector2(movement_speed, 0));
+
+			break;
+
+		case SDLK_LEFT:
+
+			MoveHeadPos(Vector2( -movement_speed, 0));
+
+			break;
+
+		default:
+			break;
+		}
 	}
-
 	MoveSnakeBody();
-
+	std::cout << GetSnakeHeadPosition().x << " " << GetSnakeHeadPosition().y << "\n";
 }
 
 bool Player::isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_input) noexcept {
@@ -150,24 +150,18 @@ bool Player::isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_inpu
 
 }
 
+void Player::MoveHeadPos(const Vector2& move_amount) {
+
+	snake_body.front().pos = GetHead().pos + move_amount;
+
+}
+
 void Player::MoveSnakeBody() {
-
-	//PlayerPart tempPart1 = {};
-	//PlayerPart tempPart2 = snake_body.front();
-
-	//for (int i = 0; i < snake_body.size(); i++)
-	//{
-
-	//	 tempPart1 = tempPart2;
-	//	 tempPart2 = snake_body.at(i);
-	//	
-	//	snake_body.at(i) = tempPart1;
-
-	//}
 
 	std::shift_right(snake_body.begin(), snake_body.end(), 1);
 
 }
+
 
 void Player::AddSnakePart(const SNAKE_PART_TYPE& part_type) {
 

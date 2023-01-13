@@ -2,20 +2,19 @@
 
 struct Vector2
 {
-	float x {}; 
-	float y {};
+	int x {}; 
+	int y {};
 
 	Vector2();
 	Vector2(const Vector2& rhs);
-	Vector2(const float x, const float y);
+	Vector2(const int x, const int y);
 
 	Vector2& operator=(const Vector2& rhs);				 
 	Vector2 operator+(const Vector2& rhs) const;		 
 	Vector2 operator-(const Vector2& rhs) const;		 
 	Vector2 operator*(const Vector2& rhs) const;	
 	Vector2 operator/(const Vector2& rhs) const;
-	Vector2 operator*(const float rhs) const;			 
-	Vector2 operator/(const float rhs) const;		
+	
 
 	bool operator==(const Vector2& rhs) const;
 

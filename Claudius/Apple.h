@@ -18,9 +18,8 @@ public:
 
 private:
 
-	Rectangle rect;
 	Color color;
-	Transform trans;
+	Vector2 pos;
 
 	int size = {};
 

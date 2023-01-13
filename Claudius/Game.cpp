@@ -22,7 +22,7 @@ void Game::Enter() {
 
 	Window window{ window_config.title, window_config.width, window_config.height };
 	Renderer renderer { window };
-	RenderManager render_manager {};
+	RenderManager render_manager { };
 	
 	running = true;
 
@@ -48,24 +48,12 @@ void Game::Enter() {
 			}
 		}
 
-		Update();
+		//CheckCollisions();
+		QueueGameObjectsForRendering(render_manager);
 
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-		SDL_RenderClear(renderer);
+		render_manager.RenderCurrentFrame(renderer);
+		render_manager.ClearRenderQueue();
 
-		for (auto&& entry : GetRenderQueue())
-		{
-			SDL_SetRenderDrawColor(renderer, entry.color.r, entry.color.g, entry.color.b, entry.color.a);
-			SDL_Rect rect{ static_cast<int>(entry.trans.position.x),
-						   static_cast<int>(entry.trans.position.y),
-						   entry.rect.w,
-						   entry.rect.h };
-
-			SDL_RenderFillRect(renderer, &rect);
-		}
-		SDL_RenderPresent(renderer);
-
-		ClearRenderManager();
 
 		SDL_Delay(1000 / 20);
 	}
@@ -74,7 +62,7 @@ void Game::Enter() {
 
 }
 
-void Game::Update()
+void Game::CheckCollisions()
 {
 
 	//player.Update();
@@ -104,7 +92,6 @@ void Game::Update()
 		apple.SetRandomPosition();
 	}
 
-	QueueGameObjectsForRendering(render_manager);
 
 }
 
@@ -112,17 +99,6 @@ void Game::QueueGameObjectsForRendering( RenderManager& render_manager)
 {
 	player.QueueSnakeForRendering(render_manager);
 	apple.QueueAppleForRendering(render_manager);
-}
-
-void Game::ClearRenderManager() noexcept {
-
-	render_manager.ClearRenderQueue();
-
-}
-
-std::vector<RenderManager::RenderEntry> Game::GetRenderQueue()
-{
-	return render_manager.render_queue;
 }
 
 

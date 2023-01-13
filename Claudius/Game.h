@@ -18,21 +18,16 @@ public:
 	Game() noexcept;
 
 	void Enter();
-	void Update();
+	void CheckCollisions();
 	
 	
-	void ClearRenderManager() noexcept;
 	void UpdatePlayerMovement(SDL_Keycode key) noexcept;
-
-
-
-	std::vector<RenderManager::RenderEntry> GetRenderQueue();
 
 private:
 
 	struct WindowConfig {
-		int width = {};
-		int height = {};
+		unsigned int width = {};
+		unsigned int height = {};
 		std::string_view title = {};
 	};
 
@@ -40,8 +35,6 @@ private:
 
 	Player player = {};
 	Apple apple = {};
-
-	RenderManager render_manager = {};
 
 	bool running = {};
 

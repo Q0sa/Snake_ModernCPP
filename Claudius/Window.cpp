@@ -22,3 +22,9 @@ Window::Window(std::string_view window_title, const unsigned int width, const un
 	
 	
 }
+
+SDL_Window* Window::GetPointer() const noexcept {
+
+	return window.get();
+
+}

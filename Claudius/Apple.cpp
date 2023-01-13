@@ -8,7 +8,7 @@ Apple::Apple() noexcept :
 	size(10),
 	color(0, 255, 0, 0)
 {
-	rect.SetBounds(0, 0, size, size),
+
 	SetRandomPosition();
 
 }
@@ -16,26 +16,24 @@ Apple::Apple() noexcept :
 
 void Apple::QueueAppleForRendering(RenderManager& renderManager)
 {
-	renderManager.PushRectEntryToRenderQueue(rect, color, trans);
+	renderManager.PushRectEntryToRenderQueue(pos, color);
 }
 
 void Apple::SetRandomPosition() {
 
-	const Vector2 newPosition = GenerateRandomPosition();
-
-	trans.SetPosition(newPosition.x, newPosition.y);
+	pos = GenerateRandomPosition();
 
 }
 
 Vector2 Apple::GenerateRandomPosition() {
 
-	return Vector2((rand() % 125) * 10.0f, (rand() % 70) * 10.0f);
+	return Vector2((rand() % 125) * 10, (rand() % 70) * 10);
 
 }
 
 Vector2 Apple::GetPosition() {
 
-	return trans.GetPosition();
+	return pos;
 
 }
 

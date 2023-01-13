@@ -9,7 +9,7 @@ Vector2::Vector2(const Vector2& rhs) : x(rhs.x), y(rhs.y)
 {
 }
 
-Vector2::Vector2(const float x, const float y) : x(x), y(y) 
+Vector2::Vector2(const int x, const int y) : x(x), y(y) 
 {
 }
 
@@ -40,15 +40,6 @@ Vector2 Vector2::operator/(const Vector2& rhs) const
 	return Vector2(x / rhs.x, y / rhs.y);
 }
 
-Vector2 Vector2::operator*(const float rhs) const
-{
-	return Vector2(x * rhs, y * rhs);
-}
-
-Vector2 Vector2::operator/(const float rhs) const
-{
-	return Vector2(x / rhs, y / rhs);
-}
 
 bool Vector2::operator==(const Vector2& rhs) const
 {

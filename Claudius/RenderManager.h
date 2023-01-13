@@ -1,26 +1,39 @@
 #pragma once
 
+#include "SDL_render.h"
+#include "SDL_rect.h"
+#include "Renderer.h"
+#include "Vector2.h"
+#include "Color.h"
 #include <vector>
 
-struct Transform;
-struct Rectangle;
-struct Color;
+
+struct SDL_Renderer;
 
 class RenderManager
 {
 public:
+
+
 	struct RenderEntry
 	{
-		const Rectangle& rect;
-		const Color& color;
-		const Transform& trans;
+		Vector2 pos{};
+		Color color{};
 	};
 
-	void Draw();
+	std::vector<RenderEntry> render_queue = {};
+	//RenderManager(const Renderer& renderer);
 
-	void PushRectEntryToRenderQueue(const Rectangle& rect, const Color& color, const Transform& trans);
+
+	void PushRectEntryToRenderQueue( const Vector2& pos, const Color& color );
+	
+	void RenderCurrentFrame(Renderer& renderer);
 	void ClearRenderQueue() noexcept;
 
-	std::vector<RenderEntry> render_queue = {};
 
+
+private:
+	void RenderQueueToRects(Renderer& renderer);
+
+	
 };
