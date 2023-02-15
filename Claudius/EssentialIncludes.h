@@ -32,6 +32,24 @@ struct SDL_Destroyer {
 	}
 };
 
+inline bool operator==(const SDL_Point& lh, const SDL_Point& rh) noexcept{
+
+	return lh.x == rh.x && lh.y == rh.y;
+
+}
+
+inline bool operator!=(const SDL_Point& lh, const SDL_Point& rh) noexcept {
+
+	return !(lh == rh);
+
+}
+
+inline SDL_Point operator+=(const SDL_Point& lh, const SDL_Point& rh) noexcept {
+
+	return SDL_Point(lh.x + rh.x, lh.y + rh.x);
+
+}
+
 
 constexpr auto _TITLE = "Snake";
 

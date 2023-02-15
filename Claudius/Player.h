@@ -11,13 +11,7 @@ public:
 	
 	Player() noexcept;
 
-	struct PlayerPart
-	{
 
-		SDL_Point pos = { 0, 0 };
-
-	};// make this just a posiion thing
-	
 	enum class SNAKE_PART_TYPE { HEAD, NEW_PART};
 
 	void AddSnakePart(const SNAKE_PART_TYPE& part_type) noexcept;
@@ -29,26 +23,19 @@ public:
 	void Render(const Renderer& renderer) const noexcept;
 	void ResetPlayer() noexcept;
 
+	const std::vector<SDL_Point> &GetSnakeBodyPositions() const noexcept;
+	const SDL_Point& GetHead() const noexcept;
 
-	SDL_Point &GetSnakeHeadPosition() noexcept;
-	std::vector<SDL_Point> GetSnakeBodyPositions() const noexcept;
-	SDL_Point& GetSnakeTailPosition() noexcept;
+	bool PlayerIsSelfColliding() const noexcept;
 
-
-	
 private:
 
 
 	SDL_Keycode active_valid_input{};
 
-	std::vector <PlayerPart> snake_body = {};
+	std::vector <SDL_Point> snake_body = { SDL_Point(_PLAYER_START_POS) };
 
 	bool isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_input) const noexcept;
-
-	void MoveHeadPos(const SDL_Point& pos) noexcept;
-
-	PlayerPart &GetHead() const noexcept; //delete in future 
-	PlayerPart &GetTail() const noexcept;
 
 	void MoveSnakeBody();
 
