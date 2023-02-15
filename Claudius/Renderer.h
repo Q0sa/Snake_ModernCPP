@@ -1,9 +1,24 @@
 #pragma once
 #include "Window.h"
+#include <vector>
+
 
 class Renderer {
 public:
+
+	struct RenderEntry
+	{
+		SDL_Point pos = { 0, 0 };
+		SDL_Color color = { 0, 0, 0, 0 };
+	};
+
 	Renderer(const Window& window);
+	
+	void PushRectEntryToRenderQueue(const SDL_Point& pos, const SDL_Color& color) noexcept;
+
+	void RenderCurrentFrame(Renderer& renderer) noexcept;
+	void ClearRenderQueue() noexcept;
+	void RenderQueueToRects(Renderer& renderer) noexcept;
 
 	void SetRenderColor(const SDL_Color& color) noexcept;
 	void ClearRenderer() noexcept;
@@ -19,13 +34,8 @@ public:
 
 private:
 
-	struct Renderer_Destroyer {
-		void operator()(SDL_Renderer* render_ptr) const noexcept {
-			if (render_ptr)
-				SDL_DestroyRenderer(render_ptr);
+	std::vector<RenderEntry> render_queue = {};
+	
+	std::unique_ptr<SDL_Renderer, SDL_Destroyer> renderer;
 
-		}
-	};
-
-	std::unique_ptr<SDL_Renderer, Renderer_Destroyer> renderer;
 };

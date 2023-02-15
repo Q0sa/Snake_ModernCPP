@@ -1,9 +1,6 @@
 #pragma once
 
-
-#include "RenderManager.h"
-
-
+#include "Renderer.h"
 
 class Apple
 {
@@ -11,16 +8,16 @@ public:
 
 	Apple() noexcept;
 
-	void QueueAppleForRendering(RenderManager& renderManager) noexcept;
+	void QueueAppleForRendering(const Renderer& renderer) noexcept;
 	void SetRandomPosition(const SDL_Point& window_bounds) noexcept;
 
 	SDL_Point GetPosition() const noexcept;
 
 private:
 
-	SDL_Color color = {};
-	SDL_Point pos = {};
+	SDL_Color color = {0, 0, 0, 0};
+	SDL_Point pos = { 0, 0 };
 
-	int size = {};
+	int size = 0;
 
 };

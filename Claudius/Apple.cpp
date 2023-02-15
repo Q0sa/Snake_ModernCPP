@@ -12,10 +12,10 @@ Apple::Apple() noexcept :
 }
 
 
-void Apple::QueueAppleForRendering(RenderManager& renderManager) noexcept
+void Apple::QueueAppleForRendering(Renderer& renderer) noexcept
 {
-	renderManager.PushRectEntryToRenderQueue(pos, SDL_Color(255, 0, 0, 0));
-}
+	renderer.PushRectEntryToRenderQueue(pos, SDL_Color(255, 0, 0, 0));
+} //remove the middle man of a que and just directly render it
 
 void Apple::SetRandomPosition(const SDL_Point& window_bounds) noexcept {
 

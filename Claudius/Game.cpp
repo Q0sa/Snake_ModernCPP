@@ -1,6 +1,10 @@
+#pragma once
 
+#include <ranges>
+#include "SDL.h"
 #include "Game.h"
-#include "RenderManager.h"
+#include "Window.h" // look into removing this
+#include "Renderer.h"
 
 Game::Game() noexcept :
 	window_config({ 1250, 700, "Snake"}),
@@ -18,29 +22,28 @@ void Game::Enter() {
 
 	Window window{ window_config.title, window_config.width, window_config.height };
 	Renderer renderer { window };
-	RenderManager render_manager { };
 	
 	running = true;
 
-
+	//Make game run func
 	while (running)
 	{
 
 		InputEventCheck();
 
-		player.Movement();
+		player.Movement();  // Wrong layers of abstractions. Is this not what we do in an update? Make update function
+		                    //
+		CheckCollisions();  //
+		QueueGameObjectsForRendering(renderer);
 
-		CheckCollisions();
-		QueueGameObjectsForRendering(render_manager);
-
-		render_manager.RenderCurrentFrame(renderer);
-		render_manager.ClearRenderQueue();
+		renderer.RenderCurrentFrame(renderer);
+		renderer.ClearRenderQueue();
 
 
-		SDL_Delay(1000 / 20);
+		SDL_Delay(1000 / 20); // What is 1000 / 20? Define in EssentialInclude as const variable, also delay is exclusively for rendering
 	}
 
-	
+	SDL_Quit();
 
 }
 
@@ -104,10 +107,10 @@ bool Game::PlayerIsEatingApple() noexcept {
 
 }
 
-void Game::QueueGameObjectsForRendering( RenderManager& render_manager) noexcept
+void Game::QueueGameObjectsForRendering( Renderer& renderer) noexcept
 {
-	player.QueueSnakeForRendering(render_manager);
-	apple.QueueAppleForRendering(render_manager);
+	player.QueueSnakeForRendering(renderer);
+	apple.QueueAppleForRendering(renderer);
 }
 
 void Game::InputEventCheck() noexcept {

@@ -1,10 +1,7 @@
 #pragma once		
 #include "SDL_keycode.h"
-#include "RenderManager.h"
+#include "Renderer.h"
 #include <vector>
-#include <ranges>
-#include <algorithm>
-#include <cmath>
 
 
 
@@ -18,9 +15,9 @@ public:
 	struct PlayerPart
 	{
 
-		 SDL_Point pos;
+		SDL_Point pos = { 0, 0 };
 
-	};
+	};// make this just a posiion thing
 	
 	enum class SNAKE_PART_TYPE { HEAD, NEW_PART};
 
@@ -30,7 +27,7 @@ public:
 
 	void HandleInput(SDL_Keycode key) noexcept;
 	
-	void QueueSnakeForRendering(RenderManager& renderManager) const noexcept;
+	void QueueSnakeForRendering(Renderer& renderer) const noexcept;
 	void ResetPlayer() noexcept;
 
 
@@ -43,12 +40,12 @@ public:
 private:
 
 
-	SDL_Keycode active_valid_input = {};
+	SDL_Keycode active_valid_input{};
 
-	int size = {};
-	int movement_speed = {};
-	int starting_x = {};
-	int starting_y = {};
+	int size = 0; //should be removed
+	int movement_speed = 0;
+	int starting_x = 0; //sdl_point?
+	int starting_y = 0;
 
 	std::vector <PlayerPart> snake_body = {};
 

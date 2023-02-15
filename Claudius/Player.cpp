@@ -1,5 +1,8 @@
+
 #include "Player.h"
-#include "RenderManager.h"
+#include <ranges>
+#include <algorithm>
+#include <cmath>
 
 
 Player::Player() noexcept :
@@ -15,16 +18,16 @@ Player::Player() noexcept :
 }
 
 
-void Player::QueueSnakeForRendering(RenderManager& renderManager) const noexcept
+void Player::QueueSnakeForRendering(Renderer& renderer) const noexcept
 {
 
 	for (auto& part : snake_body) {
 
-		renderManager.PushRectEntryToRenderQueue(part.pos, SDL_Color(0, 255, 0, 0));
+		renderer.PushRectEntryToRenderQueue(part.pos, SDL_Color(0, 255, 0, 0)); //value should be in essential file header thing
 
 	}
 	
-}
+} 
 
 void Player::HandleInput(SDL_Keycode key) noexcept {
 
@@ -38,10 +41,17 @@ void Player::HandleInput(SDL_Keycode key) noexcept {
 
 void Player::Movement() 
 {
+	// combine handleinput and make the SDL_point be its own 
+	//dedicated fixed values that is check at key down, and have movement just be the actual position moving
 
-		switch (active_valid_input)
+	//make a heading variable that is a vector, it can have five values, none or the four directions, the values should have their respectful names in the essentials header
+	//remove handleInput, instead check when you recieve the input if it is valid or not (if input == up and if heading != down)
+	//when entering a case, just re-assign the heading variable to correct direction
+	//re-name this func to handleInput, and call MoveHeadPos only one in a movement func
+
+		switch (active_valid_input) 
 		{
-		case SDLK_UP:
+		case SDLK_UP: 
 
 			MoveHeadPos(SDL_Point(0, -movement_speed));
 

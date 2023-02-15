@@ -4,15 +4,10 @@ Renderer::Renderer(const Window& window) {
 
 	SDL_Renderer* temp = SDL_CreateRenderer(window.GetPointer(), -1, SDL_RendererFlags::SDL_RENDERER_ACCELERATED);
 	if (temp == nullptr)
-	{
-		std::cout << SDL_GetError() << "\n";
+		throw SDL_InitError();
 
-		SDL_DestroyRenderer(temp);
-
-		throw;
-	}
-
-	renderer = std::unique_ptr<SDL_Renderer, Renderer_Destroyer>(temp);
+	
+	renderer = std::unique_ptr<SDL_Renderer, SDL_Destroyer>(temp);
 
 
 }
@@ -53,6 +48,48 @@ void Renderer::Present() noexcept {
 void Renderer::ClearRenderer() noexcept {
 
 	SDL_RenderClear(renderer.get());
+
+}
+
+void  Renderer::ClearRenderQueue() noexcept
+{
+	render_queue.clear();
+}
+
+
+void Renderer::PushRectEntryToRenderQueue(const SDL_Point& pos, const SDL_Color& color) noexcept
+{
+
+	render_queue.push_back({ pos, color });
+
+}
+
+void Renderer::RenderCurrentFrame(Renderer& renderer) noexcept {
+
+
+	renderer.SetRenderColor(SDL_Color(0, 0, 0, 0));
+	renderer.ClearRenderer();
+
+	RenderQueueToRects(renderer);
+
+	renderer.Present();
+
+}
+
+
+
+void Renderer::RenderQueueToRects(Renderer& renderer) noexcept { //this should be a function taking the rects you want to render and drawing/rendering them directly
+	//in other words, make this function take the same arguments as the renderque func and use this where you use the render que func
+	for (auto&& entry : render_queue)
+	{
+
+		renderer.SetRenderColor(entry.color);
+
+		const SDL_Rect temp = renderer.CreateRect(entry.pos, SDL_Point(10, 10)); //magic values
+
+		renderer.FillRect(temp);
+
+	}
 
 }
 

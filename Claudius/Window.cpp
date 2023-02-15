@@ -1,10 +1,9 @@
 #include "Window.h"
 
-Window::Window(std::string_view window_title, const int width, const int height) {
+Window::Window(std::string_view title, unsigned int width, unsigned int height) {
 
-	
-	window = std::unique_ptr<SDL_Window, Window_Destroyer>(
-		SDL_CreateWindow(window_title.data(),
+	window = std::unique_ptr<SDL_Window, SDL_Destroyer>(
+		SDL_CreateWindow(title.data(),
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
 		width,
@@ -13,12 +12,7 @@ Window::Window(std::string_view window_title, const int width, const int height)
 	);
 	
 	if (window.get() == nullptr)
-	{
-		std::cout << SDL_GetError() << "\n";
-
-		throw;
-
-	}
+		throw SDL_InitError();
 	
 }
 

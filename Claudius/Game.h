@@ -1,13 +1,9 @@
 #pragma once
 
-#include <string>
-#include <vector>
-#include "SDL.h"
-#include "Window.h"
 #include "Renderer.h"
 #include "Apple.h"
 #include "Player.h"
-#include "RenderManager.h"
+#include "Renderer.h"
 
 
 class Game
@@ -22,23 +18,23 @@ public:
 private:
 
 	struct WindowConfig {
-	    int width = {};
-	    int height = {};
-		std::string_view title = {};
+	    int width = 0;
+	    int height = 0;
+		std::string_view title{};
 	};
 
-	WindowConfig window_config = {};
+	WindowConfig window_config{};
 
-	Player player = {};
-	Apple apple = {};
+	Player player{};
+	Apple apple{};
 
-	bool running = {};
+	bool running = false;
 
 	void CheckCollisions() noexcept;
 	
 	void UpdatePlayerInput(SDL_Keycode key) noexcept;
 	void InputEventCheck() noexcept;
-	void QueueGameObjectsForRendering(RenderManager& render_manager) noexcept;
+	void QueueGameObjectsForRendering(Renderer& render_manager) noexcept;
 	 
 	bool PlayerIsSelfColliding() noexcept;
 	bool PlayerIsOutOfBounds() noexcept;
