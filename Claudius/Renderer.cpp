@@ -67,7 +67,7 @@ void Renderer::PushRectEntryToRenderQueue(const SDL_Point& pos, const SDL_Color&
 void Renderer::RenderCurrentFrame(Renderer& renderer) noexcept {
 
 
-	renderer.SetRenderColor(SDL_Color(0, 0, 0, 0));
+	renderer.SetRenderColor(_COLOR_CLEAR);
 	renderer.ClearRenderer();
 
 	RenderQueueToRects(renderer);

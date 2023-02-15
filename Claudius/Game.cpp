@@ -6,21 +6,13 @@
 #include "Window.h" // look into removing this
 #include "Renderer.h"
 
-Game::Game() noexcept :
-	window_config({ 1250, 700, "Snake"}),
-	apple(),
-	player()
-
-{
-
-}
 
 void Game::Enter() {
 
 	
 	SDL_Init(SDL_INIT_EVERYTHING);
 
-	Window window{ window_config.title, window_config.width, window_config.height };
+	Window window{ _TITLE, _DIMENSIONS.x, _DIMENSIONS.y };
 	Renderer renderer { window };
 	
 	running = true;
@@ -40,7 +32,7 @@ void Game::Enter() {
 		renderer.ClearRenderQueue();
 
 
-		SDL_Delay(1000 / 20); // What is 1000 / 20? Define in EssentialInclude as const variable, also delay is exclusively for rendering
+		SDL_Delay(_RENDER_DELAY); // What is 1000 / 20? Define in EssentialInclude as const variable, also delay is exclusively for rendering
 	}
 
 	SDL_Quit();
@@ -58,13 +50,13 @@ void Game::CheckCollisions() noexcept
 	if (PlayerIsEatingApple())
 	{
 		player.AddSnakePart(Player::SNAKE_PART_TYPE::NEW_PART);
-		apple.SetRandomPosition(SDL_Point(window_config.width, window_config.height));
+		apple.SetRandomPosition(_DIMENSIONS);
 	}
 
 
 }
 
-bool Game::PlayerIsSelfColliding() noexcept {
+bool Game::PlayerIsSelfColliding() noexcept { //MOVE TO SNAKE
 
 	const SDL_Point player_head_pos = player.GetSnakeHeadPosition();
 	
@@ -85,8 +77,8 @@ bool Game::PlayerIsOutOfBounds() noexcept {
 	const SDL_Point player_head_pos = player.GetSnakeHeadPosition();
 
 
-	if (player_head_pos.x > window_config.width || player_head_pos.x < 0 ||
-		player_head_pos.y > window_config.height || player_head_pos.y < 0)
+	if (player_head_pos.x > _DIMENSIONS.x || player_head_pos.x < 0 ||
+		player_head_pos.y > _DIMENSIONS.y || player_head_pos.y < 0)
 	{
 		return true;
 	}

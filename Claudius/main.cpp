@@ -4,8 +4,28 @@
 
 int main()
 {
-		
-	Game{}.Enter();
+	try {
+
+		Game{}.Enter();
+
+	}
+	catch (const SDL_InitError& initError) {
+	
+		throw initError;
+
+	}
+	catch (const std::exception& excep) {
+
+		throw excep;
+
+	}
+	catch (...) {
+	
+		std::cout << "Unknown exception has occured!\n";
+		return -1;
+	}
+
+
 
 	//add excpetion handling with try catch (use multiple catches)
 

@@ -10,12 +10,6 @@
 
 #pragma warning(pop)
 
-//place warning suppression in here (done)
-
-//MOVE WINDOW AND RENDERER DELETER IN HERE (done)
-
-//All univesal vals in here as well (Delay time, window title, window width and height, basically everything that is set within the headers such as start position of snake and such) 
-//Also colours
 
 struct SDL_InitError : std::runtime_error {
 
@@ -40,7 +34,23 @@ struct SDL_Destroyer {
 
 
 constexpr auto _TITLE = "Snake";
-constexpr auto _DIMENSIONS = (1250, 700);
-constexpr auto _DELAY = 50;
-constexpr auto _SIZE = 10;
-constexpr auto _APPLE_START_POS = (320, 500);
+
+constexpr SDL_Point _DIMENSIONS (1250, 700);
+
+constexpr auto _RENDER_DELAY = 50;
+constexpr auto _RENDER_SIZE = 10;
+
+constexpr SDL_Point _APPLE_START_POS (320, 500);
+constexpr SDL_Point _PLAYER_START_POS (300, 300);
+
+constexpr auto _MOVEMENT_SPEED = 10;
+constexpr SDL_Point _MOVEMENT_UP (0, -_MOVEMENT_SPEED);
+constexpr SDL_Point _MOVEMENT_DOWN (0, _MOVEMENT_SPEED);
+constexpr SDL_Point _MOVEMENT_LEFT (-_MOVEMENT_SPEED, 0);
+constexpr SDL_Point _MOVEMENT_RIGHT (-_MOVEMENT_SPEED, 0);
+
+constexpr SDL_Color _COLOR_CLEAR (0, 0, 0, 0);
+constexpr SDL_Color _COLOR_GREEN (0, 255, 0, 255);
+constexpr SDL_Color _COLOR_RED (255, 0, 0, 255);
+
+

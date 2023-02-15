@@ -5,11 +5,7 @@
 #include <cmath>
 
 
-Player::Player() noexcept :
-	size(10),
-	movement_speed(10),
-	starting_x(300),
-	starting_y(300)
+Player::Player() noexcept 
 {
 	
 	AddSnakePart(SNAKE_PART_TYPE::HEAD);
@@ -23,7 +19,7 @@ void Player::QueueSnakeForRendering(Renderer& renderer) const noexcept
 
 	for (auto& part : snake_body) {
 
-		renderer.PushRectEntryToRenderQueue(part.pos, SDL_Color(0, 255, 0, 0)); //value should be in essential file header thing
+		renderer.PushRectEntryToRenderQueue(part.pos, _COLOR_GREEN); //value should be in essential file header thing
 
 	}
 	
@@ -53,25 +49,25 @@ void Player::Movement()
 		{
 		case SDLK_UP: 
 
-			MoveHeadPos(SDL_Point(0, -movement_speed));
+			MoveHeadPos(_MOVEMENT_UP);
 
 			break;
 
 		case SDLK_DOWN:
 
-			MoveHeadPos(SDL_Point(0, movement_speed));
+			MoveHeadPos(_MOVEMENT_DOWN);
 
 			break;
 
 		case SDLK_RIGHT:
 
-			MoveHeadPos(SDL_Point(movement_speed, 0));
+			MoveHeadPos(_MOVEMENT_RIGHT);
 
 			break;
 
 		case SDLK_LEFT:
 
-			MoveHeadPos(SDL_Point( -movement_speed, 0));
+			MoveHeadPos(_MOVEMENT_LEFT);
 
 			break;
 
@@ -134,7 +130,7 @@ void Player::AddSnakePart(const SNAKE_PART_TYPE& part_type) noexcept{
 	{
 	case SNAKE_PART_TYPE::HEAD:
 
-		newPart.pos = SDL_Point(starting_x, starting_y);
+		newPart.pos = _PLAYER_START_POS;
 
 		break;
 

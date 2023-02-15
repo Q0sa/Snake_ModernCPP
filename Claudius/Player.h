@@ -42,11 +42,6 @@ private:
 
 	SDL_Keycode active_valid_input{};
 
-	int size = 0; //should be removed
-	int movement_speed = 0;
-	int starting_x = 0; //sdl_point?
-	int starting_y = 0;
-
 	std::vector <PlayerPart> snake_body = {};
 
 	bool isInputNotOppositeOfMoveDirection(const SDL_Keycode& direction_input) const noexcept;

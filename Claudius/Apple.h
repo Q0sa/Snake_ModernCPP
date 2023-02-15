@@ -6,8 +6,6 @@ class Apple
 {
 public:
 
-	Apple() noexcept;
-
 	void QueueAppleForRendering(const Renderer& renderer) noexcept;
 	void SetRandomPosition(const SDL_Point& window_bounds) noexcept;
 
@@ -15,9 +13,6 @@ public:
 
 private:
 
-	SDL_Color color = {0, 0, 0, 0};
-	SDL_Point pos = { 0, 0 };
-
-	int size = 0;
+	SDL_Point pos = _APPLE_START_POS;
 
 };

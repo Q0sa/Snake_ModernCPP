@@ -3,7 +3,6 @@
 #include "Renderer.h"
 #include "Apple.h"
 #include "Player.h"
-#include "Renderer.h"
 
 
 class Game
@@ -11,19 +10,9 @@ class Game
 
 public:
 
-	Game() noexcept;
-
 	void Enter();
 
 private:
-
-	struct WindowConfig {
-	    int width = 0;
-	    int height = 0;
-		std::string_view title{};
-	};
-
-	WindowConfig window_config{};
 
 	Player player{};
 	Apple apple{};
