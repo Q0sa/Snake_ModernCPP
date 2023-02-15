@@ -14,12 +14,12 @@ Player::Player() noexcept
 }
 
 
-void Player::QueueSnakeForRendering(Renderer& renderer) const noexcept
+void Player::Render(const Renderer& renderer) const noexcept
 {
 
 	for (auto& part : snake_body) {
 
-		renderer.PushRectEntryToRenderQueue(part.pos, _COLOR_GREEN); //value should be in essential file header thing
+		renderer.Render(_COLOR_GREEN, part.pos); //value should be in essential file header thing
 
 	}
 	
@@ -161,13 +161,13 @@ void Player::ResetPlayer() noexcept
 }
 
 
-Player::PlayerPart &Player::GetHead() noexcept  {
+Player::PlayerPart &Player::GetHead() const noexcept  {
 
 	return snake_body.front();
 
 }
 
-Player::PlayerPart& Player::GetTail() noexcept {
+Player::PlayerPart& Player::GetTail() const noexcept {
 
 	return snake_body.back();
 

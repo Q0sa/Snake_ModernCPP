@@ -1,5 +1,4 @@
 #pragma once		
-#include "SDL_keycode.h"
 #include "Renderer.h"
 #include <vector>
 
@@ -27,7 +26,7 @@ public:
 
 	void HandleInput(SDL_Keycode key) noexcept;
 	
-	void QueueSnakeForRendering(Renderer& renderer) const noexcept;
+	void Render(const Renderer& renderer) const noexcept;
 	void ResetPlayer() noexcept;
 
 
@@ -48,8 +47,8 @@ private:
 
 	void MoveHeadPos(const SDL_Point& pos) noexcept;
 
-	PlayerPart &GetHead() noexcept;
-	PlayerPart& GetTail() noexcept;
+	PlayerPart &GetHead() const noexcept; //delete in future 
+	PlayerPart &GetTail() const noexcept;
 
 	void MoveSnakeBody();
 

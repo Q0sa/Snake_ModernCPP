@@ -1,9 +1,7 @@
 #pragma once
 
 #include "EssentialIncludes.h"
-//#include "SDL_render.h"
 #include <iostream>
-#include <memory>
 #include <string>
 
 class Window {

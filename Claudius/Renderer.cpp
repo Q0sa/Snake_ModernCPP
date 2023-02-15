@@ -6,90 +6,31 @@ Renderer::Renderer(const Window& window) {
 	if (temp == nullptr)
 		throw SDL_InitError();
 
-	
 	renderer = std::unique_ptr<SDL_Renderer, SDL_Destroyer>(temp);
-
-
 }
 
-SDL_Renderer* Renderer::GetPointer() noexcept {
 
-	return renderer.get();
-
-}
-
-void Renderer::SetRenderColor(const SDL_Color& color) noexcept {
-
-	SDL_SetRenderDrawColor(renderer.get(), color.r, color.g, color.b, color.a);
-
-}
-
-SDL_Rect Renderer::CreateRect(const SDL_Point& pos, const SDL_Point& size) noexcept {
-
-	return SDL_Rect{ pos.x,
-				     pos.y,
-				     size.x,
-				     size.y };
-
-}
-
-void Renderer::FillRect(const SDL_Rect& rect) noexcept {
-
-	SDL_RenderFillRect(renderer.get(), &rect);
-
-}
 
 void Renderer::Present() noexcept {
 
-	SDL_RenderPresent(renderer.get());
-
-}
-
-void Renderer::ClearRenderer() noexcept {
+	SDL_SetRenderDrawColor(renderer.get(), _COLOR_CLEAR.r, _COLOR_CLEAR.g, _COLOR_CLEAR.b, _COLOR_CLEAR.a);
 
 	SDL_RenderClear(renderer.get());
 
-}
+	SDL_RenderPresent(renderer.get());
 
-void  Renderer::ClearRenderQueue() noexcept
-{
-	render_queue.clear();
-}
-
-
-void Renderer::PushRectEntryToRenderQueue(const SDL_Point& pos, const SDL_Color& color) noexcept
-{
-
-	render_queue.push_back({ pos, color });
-
-}
-
-void Renderer::RenderCurrentFrame(Renderer& renderer) noexcept {
-
-
-	renderer.SetRenderColor(_COLOR_CLEAR);
-	renderer.ClearRenderer();
-
-	RenderQueueToRects(renderer);
-
-	renderer.Present();
+	SDL_Delay(_RENDER_DELAY);
 
 }
 
 
+void Renderer::Render(const SDL_Color& in_color, const SDL_Point& in_position) const noexcept {
 
-void Renderer::RenderQueueToRects(Renderer& renderer) noexcept { //this should be a function taking the rects you want to render and drawing/rendering them directly
-	//in other words, make this function take the same arguments as the renderque func and use this where you use the render que func
-	for (auto&& entry : render_queue)
-	{
+	SDL_SetRenderDrawColor(renderer.get(), in_color.r, in_color.g, in_color.b, in_color.a);
 
-		renderer.SetRenderColor(entry.color);
+	const SDL_Rect temp = SDL_Rect{ in_position.x, in_position.y, _RENDER_SIZE.x, _RENDER_SIZE.y };
 
-		const SDL_Rect temp = renderer.CreateRect(entry.pos, SDL_Point(10, 10)); //magic values
-
-		renderer.FillRect(temp);
-
-	}
+	SDL_RenderFillRect(renderer.get(), &temp );
 
 }
 

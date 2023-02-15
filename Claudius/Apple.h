@@ -6,7 +6,7 @@ class Apple
 {
 public:
 
-	void QueueAppleForRendering(const Renderer& renderer) noexcept;
+	void Render(const Renderer& renderer) const noexcept;
 	void SetRandomPosition(const SDL_Point& window_bounds) noexcept;
 
 	SDL_Point GetPosition() const noexcept;

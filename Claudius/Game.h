@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Renderer.h"
 #include "Apple.h"
 #include "Player.h"
 
@@ -17,13 +16,17 @@ private:
 	Player player{};
 	Apple apple{};
 
-	bool running = false;
+	Window window{ _TITLE, _DIMENSIONS.x, _DIMENSIONS.y };
+	Renderer renderer{ window };
 
+	bool running = true;
+
+	void Run();
 	void CheckCollisions() noexcept;
 	
 	void UpdatePlayerInput(SDL_Keycode key) noexcept;
 	void InputEventCheck() noexcept;
-	void QueueGameObjectsForRendering(Renderer& render_manager) noexcept;
+	void Render() noexcept;
 	 
 	bool PlayerIsSelfColliding() noexcept;
 	bool PlayerIsOutOfBounds() noexcept;

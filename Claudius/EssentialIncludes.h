@@ -38,7 +38,7 @@ constexpr auto _TITLE = "Snake";
 constexpr SDL_Point _DIMENSIONS (1250, 700);
 
 constexpr auto _RENDER_DELAY = 50;
-constexpr auto _RENDER_SIZE = 10;
+constexpr SDL_Point _RENDER_SIZE (10, 10);
 
 constexpr SDL_Point _APPLE_START_POS (320, 500);
 constexpr SDL_Point _PLAYER_START_POS (300, 300);
@@ -47,10 +47,8 @@ constexpr auto _MOVEMENT_SPEED = 10;
 constexpr SDL_Point _MOVEMENT_UP (0, -_MOVEMENT_SPEED);
 constexpr SDL_Point _MOVEMENT_DOWN (0, _MOVEMENT_SPEED);
 constexpr SDL_Point _MOVEMENT_LEFT (-_MOVEMENT_SPEED, 0);
-constexpr SDL_Point _MOVEMENT_RIGHT (-_MOVEMENT_SPEED, 0);
+constexpr SDL_Point _MOVEMENT_RIGHT (_MOVEMENT_SPEED, 0);
 
 constexpr SDL_Color _COLOR_CLEAR (0, 0, 0, 0);
 constexpr SDL_Color _COLOR_GREEN (0, 255, 0, 255);
 constexpr SDL_Color _COLOR_RED (255, 0, 0, 255);
-
-

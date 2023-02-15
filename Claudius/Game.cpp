@@ -9,30 +9,25 @@
 
 void Game::Enter() {
 
-	
 	SDL_Init(SDL_INIT_EVERYTHING);
 
-	Window window{ _TITLE, _DIMENSIONS.x, _DIMENSIONS.y };
-	Renderer renderer { window };
-	
-	running = true;
+	Run();
 
-	//Make game run func
+}
+
+void Game::Run() {
+
 	while (running)
 	{
 
 		InputEventCheck();
 
-		player.Movement();  // Wrong layers of abstractions. Is this not what we do in an update? Make update function
-		                    //
-		CheckCollisions();  //
-		QueueGameObjectsForRendering(renderer);
+		player.Movement();  
 
-		renderer.RenderCurrentFrame(renderer);
-		renderer.ClearRenderQueue();
+		CheckCollisions();  
 
+		Render();
 
-		SDL_Delay(_RENDER_DELAY); // What is 1000 / 20? Define in EssentialInclude as const variable, also delay is exclusively for rendering
 	}
 
 	SDL_Quit();
@@ -99,10 +94,12 @@ bool Game::PlayerIsEatingApple() noexcept {
 
 }
 
-void Game::QueueGameObjectsForRendering( Renderer& renderer) noexcept
+void Game::Render() noexcept
 {
-	player.QueueSnakeForRendering(renderer);
-	apple.QueueAppleForRendering(renderer);
+	player.Render(renderer);
+	apple.Render(renderer);
+
+	renderer.Present();
 }
 
 void Game::InputEventCheck() noexcept {
