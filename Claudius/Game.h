@@ -24,10 +24,9 @@ private:
 	void Run();
 	void CheckCollisions() noexcept;
 	
-	void UpdatePlayerInput(SDL_Keycode key) noexcept;
 	void InputCheck() noexcept;
-	void Render() noexcept;
+	void Render() const noexcept;
 	 
-	bool PlayerIsOutOfBounds() const noexcept;
-	bool PlayerIsEatingApple() noexcept;
+	bool IsOutOfBounds(const SDL_Point& in_pos) const noexcept;
+	bool PlayerIsEatingApple() const noexcept;
 };

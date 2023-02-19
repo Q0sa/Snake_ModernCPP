@@ -21,6 +21,9 @@
     <Filter Include="Source Files\Systems">
       <UniqueIdentifier>{9b6f58fd-8306-4a04-8a80-5fa41b28858c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Essentials">
+      <UniqueIdentifier>{bf5f9db9-386c-438c-8675-ac553475dd5c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -46,9 +49,6 @@
     <ClInclude Include="Apple.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
@@ -59,7 +59,10 @@
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="EssentialIncludes.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

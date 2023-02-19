@@ -6,6 +6,8 @@ int main()
 {
 	try {
 
+		SDL_Init(SDL_INIT_EVERYTHING);
+
 		Game{}.Enter();
 
 	}
@@ -24,13 +26,6 @@ int main()
 		std::cout << "Unknown exception has occured!\n";
 		return -1;
 	}
-
-
-
-	//add excpetion handling with try catch (use multiple catches)
-
-	//init error & std::exception
-	// if unknow use ...
 
 	return 0;
 }

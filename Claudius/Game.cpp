@@ -1,15 +1,8 @@
 #pragma once
 
-#include <ranges>
-#include "SDL.h"
 #include "Game.h"
-#include "Window.h" // look into removing this
-#include "Renderer.h"
-
 
 void Game::Enter() {
-
-	SDL_Init(SDL_INIT_EVERYTHING);
 
 	Run();
 
@@ -17,12 +10,11 @@ void Game::Enter() {
 
 void Game::Run() {
 
-	while (running)
-	{
+	while (running){
 
 		InputCheck();
 
-		player.Movement();  
+		player.Move();  
 
 		CheckCollisions();  
 
@@ -37,13 +29,13 @@ void Game::Run() {
 void Game::CheckCollisions() noexcept
 {
 
-	if (player.PlayerIsSelfColliding() || PlayerIsOutOfBounds())
-		player.ResetPlayer();
+	if (player.IsSelfColliding() || IsOutOfBounds(player.GetHead()))
+		player = Player();
 
 
 	if (PlayerIsEatingApple())
 	{
-		player.AddSnakePart(Player::SNAKE_PART_TYPE::NEW_PART);
+		player.AddSnakePart();
 		apple.SetRandomPosition(_DIMENSIONS);
 	}
 
@@ -52,28 +44,21 @@ void Game::CheckCollisions() noexcept
 
 
 
-bool Game::PlayerIsOutOfBounds() const noexcept {
+bool Game::IsOutOfBounds(const SDL_Point& in_pos) const noexcept {
 
-	const SDL_Point head_pos = player.GetHead();
-
-	if (head_pos.x > _DIMENSIONS.x || head_pos.x < 0 ||
-		head_pos.y > _DIMENSIONS.y || head_pos.y < 0)
-		return true;
-	
-	return false;
+	return (in_pos.x > _DIMENSIONS.x || in_pos.x < 0 ||
+			in_pos.y > _DIMENSIONS.y || in_pos.y < 0);
 
 }
 
-bool Game::PlayerIsEatingApple() noexcept {
 
-	if (player.GetHead() == apple.GetPosition() )
-		return true;
-	
-	return false;
+bool Game::PlayerIsEatingApple() const noexcept {
+
+	return player.GetHead() == apple.GetPosition();
 
 }
 
-void Game::Render() noexcept
+void Game::Render() const noexcept
 {
 	player.Render(renderer);
 	apple.Render(renderer);

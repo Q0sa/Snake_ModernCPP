@@ -7,7 +7,7 @@ public:
 
 	Renderer(const Window& window);
 	
-	void Present() noexcept;
+	void Present() const noexcept;
 
 	void Render(const SDL_Color& in_color, const SDL_Point& in_position) const noexcept;
 
