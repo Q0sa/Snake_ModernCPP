@@ -7,12 +7,12 @@ class Apple
 public:
 
 	void Render(const Renderer& renderer) const noexcept;
-	void SetRandomPosition(const SDL_Point& window_bounds) noexcept;
+	void SetRandomPosition(const Vector2Int& window_bounds) noexcept;
 
-	SDL_Point GetPosition() const noexcept;
+	Vector2Int GetPosition() const noexcept;
 
 private:
 
-	SDL_Point pos = _APPLE_START_POS;
+	Vector2Int pos = _APPLE_START_POS;
 
 };

@@ -18,15 +18,15 @@ public:
 	
 	void Render(const Renderer& renderer) const noexcept;
 
-	const std::vector<SDL_Point> &GetSnakeBodyPositions() const noexcept;
-	const SDL_Point& GetHead() const noexcept;
+	const std::vector<Vector2Int> &GetSnakeBodyPositions() const noexcept;
+	const Vector2Int& GetHead() const noexcept;
 
     bool IsSelfColliding() const noexcept;
 
 private:
 
-	SDL_Point current_movement = _MOVE_NONE;
+	Vector2Int current_movement = _MOVE_NONE;
 
-	std::vector <SDL_Point> snake_body = { SDL_Point(_PLAYER_START_POS) };
+	std::vector <Vector2Int> snake_body = { _PLAYER_START_POS };
 
 };

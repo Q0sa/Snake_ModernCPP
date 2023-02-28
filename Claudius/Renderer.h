@@ -9,7 +9,7 @@ public:
 	
 	void Present() const noexcept;
 
-	void Render(const SDL_Color& in_color, const SDL_Point& in_position) const noexcept;
+	void Render(const SDL_Color& in_color, const Vector2Int& in_position) const noexcept;
 
 private:
 	

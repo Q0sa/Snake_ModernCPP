@@ -7,14 +7,14 @@ void Apple::Render(const Renderer& renderer) const noexcept {
 
 } 
 
-void Apple::SetRandomPosition(const SDL_Point& window_bounds) noexcept { 
+void Apple::SetRandomPosition(const Vector2Int& window_bounds) noexcept {
 
-	pos = SDL_Point((std::rand() % window_bounds.x / _RENDER_SIZE.x) * _RENDER_SIZE.x,
-		            (std::rand() % window_bounds.y / _RENDER_SIZE.y) * _RENDER_SIZE.y);
+	pos = Vector2Int((std::rand() % window_bounds.x / _RENDER_SIZE.x) * _RENDER_SIZE.x,
+		             (std::rand() % window_bounds.y / _RENDER_SIZE.y) * _RENDER_SIZE.y);
 
 }
 
-SDL_Point Apple::GetPosition() const noexcept {
+Vector2Int Apple::GetPosition() const noexcept {
 
 	return pos;
 

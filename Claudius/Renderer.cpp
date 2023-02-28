@@ -8,7 +8,7 @@ Renderer::Renderer(const Window& window) {
 						   SDL_RendererFlags::SDL_RENDERER_ACCELERATED)
 		);
 
-	if (renderer == nullptr)
+	if (renderer.get() == nullptr)
 		throw SDL_InitError();
 
 }
@@ -25,7 +25,7 @@ void Renderer::Present() const noexcept {
 
 }
 
-void Renderer::Render(const SDL_Color& in_color, const SDL_Point& in_position) const noexcept {
+void Renderer::Render(const SDL_Color& in_color, const Vector2Int& in_position) const noexcept {
 
 	SDL_SetRenderDrawColor(renderer.get(), in_color.r, in_color.g, in_color.b, in_color.a);
 

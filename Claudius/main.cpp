@@ -6,8 +6,6 @@ int main()
 {
 	try {
 
-		SDL_Init(SDL_INIT_EVERYTHING);
-
 		Game{}.Enter();
 
 	}
@@ -24,8 +22,10 @@ int main()
 	catch (...) {
 	
 		std::cout << "Unknown exception has occured!\n";
-		return -1;
+
 	}
+	
+	SDL_Quit();
 
 	return 0;
 }
