@@ -27,6 +27,6 @@ private:
 	void InputCheck() noexcept;
 	void Render() const noexcept;
 	 
-	bool IsOutOfBounds(const Vector2Int& in_pos) const noexcept;
+	bool IsOutOfBounds(const SDL_Point& in_pos) const noexcept;
 	bool PlayerIsEatingApple() const noexcept;
 };

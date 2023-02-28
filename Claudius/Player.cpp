@@ -3,8 +3,8 @@
 
 void Player::Render(const Renderer& renderer) const noexcept {
 
-	std::for_each(snake_body.begin(), snake_body.end(), [&](Vector2Int part) noexcept { 	
-		renderer.Render(_COLOR_GREEN, part);
+	std::for_each(snake_body.begin(), snake_body.end(), [&](SDL_Point part) noexcept { 	
+		renderer.Render(_COLOR_GREEN, part); 
 	});
 	
 } 
@@ -39,13 +39,13 @@ void Player::AddSnakePart() noexcept{
 }
 
 
-const Vector2Int& Player::GetHead() const noexcept {
+const SDL_Point& Player::GetHead() const noexcept {
 
 	return snake_body.front();
 
 }
 
-const std::vector<Vector2Int> &Player::GetSnakeBodyPositions() const noexcept {
+const std::vector<SDL_Point> &Player::GetSnakeBodyPositions() const noexcept {
 
 	return snake_body;
 
@@ -53,7 +53,7 @@ const std::vector<Vector2Int> &Player::GetSnakeBodyPositions() const noexcept {
 
 bool Player::IsSelfColliding() const noexcept {
 
-	return std::any_of(snake_body.begin() + 1, snake_body.end(), [&](const Vector2Int i) noexcept {
+	return std::any_of(snake_body.begin() + 1, snake_body.end(), [&](const SDL_Point i) noexcept { 
 		return i == snake_body.front(); 
 	});
 		

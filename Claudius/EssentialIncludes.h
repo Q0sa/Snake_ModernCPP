@@ -1,5 +1,4 @@
 #pragma once
-#include "Vector2Int.h"
 #include <stdexcept>
 #include <codeanalysis\warnings.h>
 
@@ -33,25 +32,42 @@ struct SDL_Destroyer {
 	}
 };
 
+inline bool operator==(const SDL_Point& lh, const SDL_Point& rh) noexcept {
+
+	return lh.x == rh.x && lh.y == rh.y;
+
+}
+
+inline bool operator!=(const SDL_Point& lh, const SDL_Point& rh) noexcept {
+
+	return !(lh == rh);
+
+}
+
+inline SDL_Point operator+(const SDL_Point& lh, const SDL_Point& rh) noexcept {
+
+	return { lh.x + rh.x, lh.y + rh.y };
+
+}
 
 
 constexpr auto _TITLE = "Snake";
 
-constexpr Vector2Int _DIMENSIONS (1250, 700);
+constexpr SDL_Point _DIMENSIONS (1250, 700);
 
 constexpr auto _RENDER_DELAY = 50;
-constexpr Vector2Int _RENDER_SIZE (10, 10);
+constexpr SDL_Point _RENDER_SIZE (10, 10);
 
-constexpr Vector2Int _APPLE_START_POS  (320, 500);
-constexpr Vector2Int _PLAYER_START_POS (300, 300);
+constexpr SDL_Point _APPLE_START_POS  (320, 500);
+constexpr SDL_Point _PLAYER_START_POS (300, 300);
 
 constexpr auto _MOVE_SPEED = 10;
 
-constexpr Vector2Int _MOVE_NONE  (0, 0);
-constexpr Vector2Int _MOVE_UP    (0, -_MOVE_SPEED);
-constexpr Vector2Int _MOVE_DOWN  (0, _MOVE_SPEED);
-constexpr Vector2Int _MOVE_LEFT  (-_MOVE_SPEED, 0);
-constexpr Vector2Int _MOVE_RIGHT (_MOVE_SPEED, 0);
+constexpr SDL_Point _MOVE_NONE  (0, 0);
+constexpr SDL_Point _MOVE_UP    (0, -_MOVE_SPEED);
+constexpr SDL_Point _MOVE_DOWN  (0, _MOVE_SPEED);
+constexpr SDL_Point _MOVE_LEFT  (-_MOVE_SPEED, 0);
+constexpr SDL_Point _MOVE_RIGHT (_MOVE_SPEED, 0);
 
 constexpr SDL_Color _COLOR_CLEAR (0, 0, 0, 0);
 constexpr SDL_Color _COLOR_GREEN (0, 255, 0, 255);

@@ -64,8 +64,5 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2Int.h">
-      <Filter>Header Files\Essentials</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

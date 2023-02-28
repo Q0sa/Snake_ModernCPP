@@ -4,8 +4,6 @@
 
 void Game::Enter() {
 
-	SDL_Init(SDL_INIT_EVERYTHING);
-
 	Run();
 
 }
@@ -34,17 +32,19 @@ void Game::CheckCollisions() noexcept
 	if (player.IsSelfColliding() || IsOutOfBounds(player.GetHead()))
 		player = Player();
 
+
 	if (PlayerIsEatingApple())
 	{
 		player.AddSnakePart();
 		apple.SetRandomPosition(_DIMENSIONS);
 	}
 
+
 }
 
 
 
-bool Game::IsOutOfBounds(const Vector2Int& in_pos) const noexcept {
+bool Game::IsOutOfBounds(const SDL_Point& in_pos) const noexcept {
 
 	return (in_pos.x > _DIMENSIONS.x || in_pos.x < 0 ||
 			in_pos.y > _DIMENSIONS.y || in_pos.y < 0);
@@ -71,7 +71,8 @@ void Game::InputCheck() noexcept {
 	SDL_Event event = {};
 	while (SDL_PollEvent(&event))
 	{
-		switch (event.type){
+		switch (event.type)
+		{
 
 		case SDL_KEYDOWN: player.HandleInput(event.key.keysym.sym);
 			break;
@@ -80,6 +81,7 @@ void Game::InputCheck() noexcept {
 			SDL_Quit();
 			running = false;
 			break;
+
 
 		default: break;
 		}
